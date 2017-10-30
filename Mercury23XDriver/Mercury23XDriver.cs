@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Drivers.LibMeter;
 using PollingLibraries.LibPorts;
 
+using System.Diagnostics;
+
 
 namespace Drivers.Mercury23XDriver
 {
@@ -59,7 +61,7 @@ namespace Drivers.Mercury23XDriver
                 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
                 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40
         };
-
+   
         private byte[] srCRCLo = new byte[256] {
                 0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7, 0x05, 0xC5, 0xC4, 0x04, 0xCC, 0x0C, 0x0D, 0xCD,
                 0x0F, 0xCF, 0xCE, 0x0E, 0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09, 0x08, 0xC8, 0xD8, 0x18, 0x19, 0xD9, 0x1B, 0xDB, 0xDA, 0x1A,
@@ -92,6 +94,8 @@ namespace Drivers.Mercury23XDriver
 
         //private VirtualPort m_vport = null;
 
+        #region Константы
+
         private const byte TEST_ANSW_SIZE = 4;
         private const byte OPEN_ANSW_SIZE = 4;
         private const byte CLOSE_ANSW_SIZE = 4;
@@ -120,89 +124,10 @@ namespace Drivers.Mercury23XDriver
         private const byte RCURRENT_ANSW_SIZE = 19;
         private const byte RSLICE_ANSW_SIZE = 18;
         private const byte REVENTTIME_ANSW_SIZE = 10;
+        #endregion
 
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="password"></param>
-        public void Init(uint address, string pass, VirtualPort data_vport)
-        {
-            byte[] password = new byte[pass.Length];
+        #region Команда, канал
 
-            for (int j = 0; j < password.Length; j++)
-            {
-                password[j] = Convert.ToByte(pass[j]);
-                password[j] -= 0x30;
-            }
-
-
-
-
-            //if (address > 239) this.m_address = address - 239;
-            //else this.m_address = address;
-
-            if (address == 0)
-            {
-                WriteToLog("Init: Не возможно проинициализировать драйвер m230 с адресом 0");
-                return;
-            }
-
-            this.m_address = address % 239;
-            if (m_address == 0) m_address = 239;
-
-            password.CopyTo(this.m_password, 0);
-
-            m_vport = data_vport;
-        }
-
-        public List<byte> GetTypesForCategory(CommonCategory common_category)
-        {
-            List<byte> listTypes = new List<byte>();
-
-            switch (common_category)
-            {
-                case CommonCategory.Current:
-                case CommonCategory.Monthly:
-                case CommonCategory.Daily:
-                    for (byte type = 1; type <= 5; type++)
-                    {
-                        listTypes.Add(type);
-                    }
-                    break;
-                case CommonCategory.Inday:
-                    break;
-            }
-
-            return listTypes;
-        }
-
-        /// <summary>
-        /// перевод из DEC в HEX
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private byte dec2hex(byte value)
-        {
-            return Convert.ToByte((value >> 4) * 10 + (value & 0xF));
-        }
-
-        /// <summary>
-        /// перевод из HEX в DEC
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private byte hex2dec(byte value)
-        {
-            return Convert.ToByte(((value / 10) << 4) + (value % 10));
-        }
-
-        /// <summary>
-        /// расчет контрольной суммы
-        /// </summary>
-        /// <param name="StrForCRC"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
         private ushort CalcCRC(ref byte[] StrForCRC, ushort size)
         {
             ushort crc = UpdateCRC(StrForCRC[0], InitCRC);
@@ -216,13 +141,6 @@ namespace Drivers.Mercury23XDriver
 
             return BitConverter.ToUInt16(this.m_crc, 0);
         }
-
-        /// <summary>
-        /// обновление контрольной суммы
-        /// </summary>
-        /// <param name="C"></param>
-        /// <param name="oldCRC"></param>
-        /// <returns></returns>
         private ushort UpdateCRC(byte C, ushort oldCRC)
         {
             byte i = 0;
@@ -238,45 +156,6 @@ namespace Drivers.Mercury23XDriver
             return BitConverter.ToUInt16(arrCRC, 0);
         }
 
-        /// <summary>
-        /// открытие канала связи
-        /// </summary>
-        /// <returns></returns>
-        public bool OpenLinkCanal()
-        {
-            bool res = true;
-
-            // Тест канала связи
-            if (Test() == false)
-            {
-                return false;
-            }
-
-            // открытие канала связи
-            if (this.Open() == false)
-                return false;
-
-            // читаем версию счетчика
-            if (this.ReadVersionMeter() == false)
-                return false;
-
-            // читаем вариант исполнения счетчика
-            if (this.ReadVariantExecute() == false)
-                return false;
-
-            return res;
-        }
-
-
-        /// <summary>
-        /// Отправка команды
-        /// </summary>
-        /// <param name="cmnd"></param>
-        /// <param name="answer"></param>
-        /// <param name="cmd_size"></param>
-        /// <param name="answ_size"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
         private bool SendCommand(byte[] cmnd, ref byte[] answer, ushort cmd_size, ushort answ_size, ref byte status)
         {
             bool res = false;
@@ -310,12 +189,6 @@ namespace Drivers.Mercury23XDriver
 
             return res;
         }
-
-        /// <summary>
-        /// формирование команды
-        /// </summary>
-        /// <param name="cmnd"></param>
-        /// <param name="size"></param>
         private void MakeCommand(byte[] cmnd, ref ushort size)
         {
             Array.Clear(this.m_cmd, 0, this.m_cmd.Length);
@@ -336,13 +209,6 @@ namespace Drivers.Mercury23XDriver
 
             size += 3;
         }
-
-        /// <summary>
-        /// проверка пришедших данных
-        /// </summary>
-        /// <param name="answer"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
         private bool FinishAccept(byte[] answer, ushort size)
         {
             byte[] crc = new byte[2];
@@ -374,11 +240,6 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
-        /// <summary>
-        /// проверка статуса ответа
-        /// </summary>
-        /// <param name="status_byte"></param>
-        /// <returns></returns>
         private bool CheckStatusByte(byte status_byte)
         {
             status_byte = 0xF;
@@ -388,10 +249,7 @@ namespace Drivers.Mercury23XDriver
                 return false;
         }
 
-        /// <summary>
-        /// тест канала связи
-        /// </summary>
-        /// <returns></returns>
+        // тест канала связи
         private bool Test()
         {
             byte[] command = new byte[1] { 0x0 };
@@ -403,13 +261,7 @@ namespace Drivers.Mercury23XDriver
 
             return true;
         }
-
-        /// <summary>
-        /// открытие канала связи
-        /// </summary>
-        /// <param name="pwd"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
+        // открытие канала связи
         private bool Open()
         {
             byte[] cmnd = new byte[32];
@@ -431,12 +283,13 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
-        /// <summary>
-        /// Чтение версии счетчика
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+
+        // Чтение версии программного обеспечения счетчика
         private bool ReadVersionMeter()
         {
+            //пример 9.00.00 - у м233,236 и т.д. -> другой алгоритм чтения поулчасовок
+
             byte[] answer = new byte[RVERSION_ANSW_SIZE];
             byte[] command = new byte[] { 0x08, 0x03 };
             byte status = 0;
@@ -448,11 +301,15 @@ namespace Drivers.Mercury23XDriver
 
             return true;
         }
+        public bool GetVersionMeter(ref int swVersion) 
+        {
+            swVersion = -1;
+            bool res = this.ReadVersionMeter();
+            swVersion = (int)this.m_version;
+            return res;
+        }
 
-        /// <summary>
-        /// Чтение варианта исполнения счетчика
-        /// </summary>
-        /// <returns></returns>
+        // Чтение варианта исполнения счетчика
         private bool ReadVariantExecute()
         {
             byte[] answer = new byte[RVAREXEC_ANSW_SIZE2];
@@ -525,43 +382,7 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
-        /// <summary>
-        /// Чтение даты/времени счетчика
-        /// </summary>
-        /// <param name="date_time"></param>
-        /// <returns></returns>
-        private bool ReadDateTime(out DateTime date_time)
-        {
-            byte[] answer = new byte[RCURTIME_ANSW_SIZE];
-            byte[] command = new byte[] { 0x04, 0x00 };
-            byte status = 0;
-
-            date_time = new DateTime();
-
-            if (!SendCommand(command, ref answer, 2, RCURTIME_ANSW_SIZE, ref status))
-                return false;
-
-            // конвертируем время из DEC в HEX
-            byte second = this.dec2hex(answer[1]);
-            byte minute = this.dec2hex(answer[2]);
-            byte hour = this.dec2hex(answer[3]);
-            byte wday = this.dec2hex(answer[4]);
-            byte day = this.dec2hex(answer[5]);
-            byte month = this.dec2hex(answer[6]);
-            byte year = this.dec2hex(answer[7]);
-
-            date_time = new DateTime(year, month, day, hour, minute, second, 0);
-
-            return true;
-        }
-
-
-        /// <summary>
-        /// Чтение указанного типа параметра
-        /// </summary>
-        /// <param name="paramType"></param>
-        /// <param name="recParams"></param>
-        /// <returns></returns>
+        // Чтение указанного типа параметра
         private bool ReadParams(byte paramType, ref RecordParamsEnergy recParams)
         {
             byte[] cmnd = new byte[32];
@@ -677,12 +498,7 @@ namespace Drivers.Mercury23XDriver
 
             return true;
         }
-
-        /// <summary>
-        /// Чтение параметров качества энергии
-        /// </summary>
-        /// <param name="listRecordsParamEnergy"></param>
-        /// <returns></returns>
+        // Чтение параметров качества энергии
         public void PowerQualityParams(out List<RecordParamsEnergy> listRecordsParamEnergy)
         {
             listRecordsParamEnergy = new List<RecordParamsEnergy>();
@@ -772,11 +588,33 @@ namespace Drivers.Mercury23XDriver
             }
         }
 
-        /// <summary>
-        /// Синхронизация времени
-        /// </summary>
-        /// <param name="date_system"></param>
-        /// <returns></returns>
+
+        #region Дата и время
+
+        private bool ReadDateTime(out DateTime date_time)
+        {
+            byte[] answer = new byte[RCURTIME_ANSW_SIZE];
+            byte[] command = new byte[] { 0x04, 0x00 };
+            byte status = 0;
+
+            date_time = new DateTime();
+
+            if (!SendCommand(command, ref answer, 2, RCURTIME_ANSW_SIZE, ref status))
+                return false;
+
+            // конвертируем время из DEC в HEX
+            byte second = this.dec2hex(answer[1]);
+            byte minute = this.dec2hex(answer[2]);
+            byte hour = this.dec2hex(answer[3]);
+            byte wday = this.dec2hex(answer[4]);
+            byte day = this.dec2hex(answer[5]);
+            byte month = this.dec2hex(answer[6]);
+            byte year = this.dec2hex(answer[7]);
+
+            date_time = new DateTime(year, month, day, hour, minute, second, 0);
+
+            return true;
+        }
         public bool SynchronizeClock(DateTime date_system)
         {
             DateTime date_counter;
@@ -830,14 +668,6 @@ namespace Drivers.Mercury23XDriver
             return this.SoftCorrectionTime(second, minute, hour);
 
         }
-
-        /// <summary>
-        /// Мягкая коррекция времени
-        /// </summary>
-        /// <param name="second"></param>
-        /// <param name="minute"></param>
-        /// <param name="hour"></param>
-        /// <returns></returns>
         private bool SoftCorrectionTime(byte second, byte minute, byte hour)
         {
             byte[] cmnd = new byte[32];
@@ -857,6 +687,10 @@ namespace Drivers.Mercury23XDriver
 
             return true;
         }
+
+        #endregion
+
+        #region Текущие, суточные, месячные, вспомогательные
 
         /// <summary>
         /// Чтение текущих показаний по указанному тарифу
@@ -1203,32 +1037,7 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
-        /// <summary>
-        /// Чтение текущих показаний
-        /// </summary>
-        /// <param name="tarif">0 - по сумме тарифов, 1 - по 1му тарифу, и т.д.</param>
-        /// <param name="recordValue"></param>
-        /// <returns></returns>
-        public bool ReadCurrentValues(ushort param, ushort tarif, ref float recordValue)
-        {
-            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
-            {
-                if (param >= 0 && param <= 4)
-                {
-                    bool r = this.ReadCurrentMeterageToTarif(param, (byte)tarif, ref recordValue);
-                    recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
-                    return r;
-                }
-                else if (param >= 5)
-                {
-                    bool r2 = this.ReadAuxilaryParams(param, (byte)tarif, ref recordValue);
-                    recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
-                    return r2;
-                }
-            }
 
-            return false;
-        }
 
         /// <summary>
         /// Чтение вспомогательных параметров
@@ -1358,44 +1167,13 @@ namespace Drivers.Mercury23XDriver
             }
         }
 
-        /// <summary>
-        /// Чтение показаний на начало текущих суток
-        /// </summary>
-        /// <param name="date_time"></param>
-        /// <param name="recordValue"></param>
-        /// <returns></returns>
-        public bool ReadDailyValues(DateTime dt, ushort param, ushort tarif, ref float recordValue)
-        {
-            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
-            {
-                bool r = this.ReadDailyMeterageToTarif(param, (byte)tarif, ref recordValue);
-                recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
-                return r;
-            }
 
+        #endregion
 
-            return false;
-        }
+        #region Получасовые
 
         /// <summary>
-        /// Чтение показаний на начало месяца
-        /// </summary>
-        /// <param name="tarif"></param>
-        /// <param name="month"></param>
-        /// <param name="recordValue"></param>
-        /// <returns></returns>
-        public bool ReadMonthlyValues(DateTime dt, ushort param, ushort tarif, ref float recordValue)
-        {
-            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
-            {
-                return this.ReadMonthlyMeterageToTarif(param, (byte)tarif, (byte)dt.Month, ref recordValue);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Чтение информации о последнем зафиксированнрм счетчиком среза
+        /// Чтение информации о последнем зафиксированном счетчиком срезе
         /// </summary>
         /// <param name="lps"></param>
         /// <returns></returns>
@@ -1442,6 +1220,8 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
+        //метрики
+        public long elMsOpen, elMsSendCmd, elMsParsing;
         // Чтение среза мощности по указанному адресу
         bool ReadSlice(ushort addr_slice, ref RecordPowerSlice record_slice, byte period, bool doReload = false)
         {
@@ -1466,14 +1246,35 @@ namespace Drivers.Mercury23XDriver
             cmnd[2] = addr[0];
             cmnd[3] = addr[1];
             cmnd[4] = 0x0F;
+
+
+            var wOpen = Stopwatch.StartNew();
             this.Open();
+            wOpen.Stop();
+            elMsOpen = wOpen.ElapsedMilliseconds;
+
+
+
+
+
+
+            var wSendCmd = Stopwatch.StartNew();
             if (!SendCommand(cmnd, ref answer, 5, RSLICE_ANSW_SIZE, ref status))
             {
                 if (status == 0x2)
                     record_slice.status = 0xFE;
                 return false;
             }
+            wSendCmd.Stop();
+            elMsSendCmd = wSendCmd.ElapsedMilliseconds;
 
+
+
+
+
+
+
+            var wCmdParsing = Stopwatch.StartNew();
             // длительность периода интегрирования
             record_slice.period = answer[7];
 
@@ -1542,108 +1343,185 @@ namespace Drivers.Mercury23XDriver
                 }
             }
 
+            wCmdParsing.Stop();
+            elMsParsing = wCmdParsing.ElapsedMilliseconds;
+
             return true;
         }
 
+        //метрики
+        public long elMsLastSlice, elMsBeforeReadSliceCall, elMsReadSlicem, elMsWholeCycle;
 
-        /// <summary>
-        /// BCD в байт - в дальнейшем перенести в модуль служебных функций
-        /// </summary>
-        /// <param name="bcds"></param>
-        /// <returns></returns>
-        byte BCDToByte(byte bcds)
+        private bool ReadPowerSliceSlowBeforeSW9(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
         {
-            byte result = 0;
+            ushort addr_before = 0;
+            ushort addr_after = 0;
+            ushort diff = 0;
+            byte[] tmp_buf = new byte[9];
+            byte[] buf = new byte[2];
+            LastPowerSlice lps = new LastPowerSlice();
+            RecordPowerSlice record_slice = new RecordPowerSlice();
+            DateTime dt_lastslice;
 
-            result = Convert.ToByte(10 * (byte)(bcds >> 4));
-            result += Convert.ToByte(bcds & 0xF);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Возвращает дату последней инициализации массива срезов
-        /// </summary>
-        /// <param name="lastInitDt"></param>
-        /// <returns></returns>
-        public bool ReadSliceArrInitializationDate(ref DateTime lastInitDt)
-        {
-            /*
-            const bool WRITE_LOG = true;
-            byte firstRecordIndex = 0;
-            byte lastRecordIndex = 9;
-
-            byte[] cmnd = new byte[32];
-            byte[] answer = new byte[9];
-            byte[] command = new byte[] { 0x04, 0x0A };
-            byte status = 0;
-
-            cmnd[0] = command[0];
-            cmnd[1] = command[1];
-
-            List<DateTime> initJournal = new List<DateTime>(10);
-
-            for (byte i = firstRecordIndex; i <= lastRecordIndex; i++)
+            // проверка: данный вариант исполнения счетчика не поддерживает учет срезов
+            if (!m_presenceProfile)
             {
-                cmnd[2] = i;
-
-                if (!SendCommand(cmnd, ref answer, 3, 9, ref status))
-                    return false;
-
-                int year = (int)BCDToByte(answer[6]);
-                int month = (int)BCDToByte(answer[5]);
-                int day = (int)BCDToByte(answer[4]);
-                int hour = (int)BCDToByte(answer[3]);
-                int minute = (int)BCDToByte(answer[2]);
-
-                if (year > 0 && month > 0 && day > 0)
-                    year += 2000;
-                else
-                    continue;
-
-                try
-                {
-                    DateTime dt = new DateTime(year, month, day, hour, minute, 0);
-                    initJournal.Add(dt);
-                }
-                catch (Exception ex)
-                {
-                    WriteToLog("ReadSliceArrInitializationDate: запись " + i.ToString() + "некорректна: " + ex.Message);
-                    continue;
-                }
-            }
-
-            if (initJournal.Count == 0)
-            {
-                WriteToLog("ReadSliceArrInitializationDate: не найдено ни одной записи в журнале инициализации массива");
                 return false;
             }
 
-            //переберем записанные даты в поисках наиболее свежей
 
-            DateTime latestDt = initJournal[0];
-            byte index = 0;
-            for (byte j = 0; j < initJournal.Count; j++)
-                if (initJournal[j] > latestDt) { latestDt = initJournal[j]; index = j; }
 
-            WriteToLog("ReadSliceArrInitializationDate: выбрана запись " + index.ToString() + ": " + latestDt.ToString(), WRITE_LOG);
-            lastInitDt = latestDt;
+
+
+            var wReadLastSlice = Stopwatch.StartNew();
+
+            // читаем последний срез
+            if (!ReadLastSlice(ref lps))
+            {
+                return false;
+            }
+
+            wReadLastSlice.Stop();
+            elMsLastSlice = wReadLastSlice.ElapsedMilliseconds;
+
+
+
+
+        
+            var wBeforeDriverCall = Stopwatch.StartNew();
+
+            try
+            {
+                // Время последнего среза из счётчика
+                dt_lastslice = new DateTime(lps.year, lps.month, lps.day, lps.hour, lps.minute, 0);
+            }
+            catch
+            {
+                return false;
+            }
+
+            if (dt_begin >= dt_lastslice)
+                return false;
+
+            // Вычисляем разницу в минутах
+            TimeSpan span = dt_lastslice - dt_begin;
+            TimeSpan span2 = dt_lastslice - dt_end;
+
+            int diff_minutes = Convert.ToInt32(span.TotalMinutes);
+            int diff_minutes2 = Convert.ToInt32(span2.TotalMinutes);
+
+
+            // если разница > max кол-ва хранящихся записей в счётчике, то не вычитываем их из счётчика
+            while (diff_minutes >= (4096 * period))
+            {
+                dt_begin = dt_begin.AddMinutes(period);
+                span = dt_lastslice - dt_begin;
+                diff_minutes = span.Minutes;
+            }
+
+            ushort diff2 = 0;
+            try
+            {
+                //Вычисляем разницу в срезах
+                diff = Convert.ToUInt16(diff_minutes / period);
+                diff2 = Convert.ToUInt16((diff_minutes2 / period) + 1);
+            }
+            catch (Exception ex)
+            {
+                WriteToLog("ReadPowerSlice: " + ex.ToString());
+                WriteToLog("ReadPowerSlice: diff_minutes2, period: " + diff_minutes2 + ", " + period);
+                WriteToLog("ReadPowerSlice: dt_begin, dt_end: " + dt_begin + ", " + dt_end);
+                return false;
+            }
+
+
+            wBeforeDriverCall.Stop();
+            elMsBeforeReadSliceCall = wBeforeDriverCall.ElapsedMilliseconds;
+
+
+
+
+
+
+
+            ushort address_slice = diff;
+
+            // Увеличиваем время на 30 минут
+            //dt_begin = dt_begin.AddMinutes(30);
+            // Уменьшаем адрес среза
+            //address_slice--;
+            var wWholeCycle = Stopwatch.StartNew();
+
+
+            for (ushort i = diff2; i <= diff; i++)
+            {
+                // меняем байты в слове местами
+                addr_before = Convert.ToUInt16(((lps.addr & 0xff) << 8) | ((lps.addr & 0xFF00) >> 8));
+                // делаем смещение
+                addr_before -= Convert.ToUInt16(address_slice * 0x10);
+                // возвращаем байты на прежнее положение
+                addr_after = Convert.ToUInt16(((addr_before & 0xff) << 8) | ((addr_before & 0xFF00) >> 8));
+
+
+
+                var wReadSliceCall = Stopwatch.StartNew();
+                // чтение среза по рассчитанному адресу
+                bool res_read_slice = ReadSlice(addr_after, ref record_slice, period);
+                wReadSliceCall.Stop();
+                elMsReadSlicem = wReadSliceCall.ElapsedMilliseconds;
+
+
+
+
+                //  this.Open();
+                //  bool res_read_slice = ReadSlice(0x10f0, ref record_slice, period);
+
+                // Если при чтении не было ошибок
+                if (res_read_slice)
+                {
+                    // проверка на то, что прочитанный срез старый
+                    if (dt_begin > record_slice.date_time)
+                        record_slice.status = 0xFE;
+                    else
+                        listRPS.Add(record_slice);
+
+                    /*
+                    else if (dt_begin == record_slice.date_time)
+                    {
+                        listRPS.Add(record_slice);
+                    }
+                    */
+                }
+
+                if (address_slice > 0)
+                {
+                    // Увеличиваем время на 30 минут
+                    dt_begin = dt_begin.AddMinutes(period);
+
+                    // Уменьшаем адрес среза
+                    address_slice--;
+                }
+
+            }
+
+            wWholeCycle.Stop();
+            elMsWholeCycle = wWholeCycle.ElapsedMilliseconds;
+
             return true;
-             */
-            return false;
         }
 
-
-        /// <summary>
-        /// Чтение срезов мощности за период времени
-        /// </summary>
-        /// <param name="dt_begin"></param>
-        /// <param name="dt_end"></param>
-        /// <param name="listRPS">Выходной лист срезов мощности</param>
-        /// <param name="period">Время через которые записаны срезы (устанавливается при инициализации срезов мощности)</param>
-        /// <returns></returns>
-        public bool ReadPowerSlice(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
+        // поиск получасовок, старый медленны алгоритм - по одной получасовке. Подходит для драйверов >= 9.00.00, но при 
+        // обнаружении, что версия меньше - вызывает старый алгоритм
+        public bool ReadPowerSliceSlowAfterSW9(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
         {
+            //
+            if (this.m_version < 90000)
+            {
+                WriteToLog("ReadPowerSlice: выполняю метод для 230х, версия " + this.m_version);
+                return this.ReadPowerSliceSlowBeforeSW9(dt_begin, dt_end, ref listRPS, period);
+            }
+
+            WriteToLog("ReadPowerSlice: выполняю метод для 233+, версия " + this.m_version);
             ushort addr_before = 0;
             ushort addr_after = 0;
             ushort diff = 0;
@@ -1788,6 +1666,70 @@ namespace Drivers.Mercury23XDriver
             return true;
         }
 
+
+        #endregion
+
+
+
+        #region Реализация методов интерфейса IMeter
+
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="password"></param>
+        public void Init(uint address, string pass, VirtualPort data_vport)
+        {
+            byte[] password = new byte[pass.Length];
+
+            for (int j = 0; j < password.Length; j++)
+            {
+                password[j] = Convert.ToByte(pass[j]);
+                password[j] -= 0x30;
+            }
+
+
+
+
+            //if (address > 239) this.m_address = address - 239;
+            //else this.m_address = address;
+
+            if (address == 0)
+            {
+                WriteToLog("Init: Не возможно проинициализировать драйвер m230 с адресом 0");
+                return;
+            }
+
+            this.m_address = address % 239;
+            if (m_address == 0) m_address = 239;
+
+            password.CopyTo(this.m_password, 0);
+
+            m_vport = data_vport;
+        }
+
+        public List<byte> GetTypesForCategory(CommonCategory common_category)
+        {
+            List<byte> listTypes = new List<byte>();
+
+            switch (common_category)
+            {
+                case CommonCategory.Current:
+                case CommonCategory.Monthly:
+                case CommonCategory.Daily:
+                    for (byte type = 1; type <= 5; type++)
+                    {
+                        listTypes.Add(type);
+                    }
+                    break;
+                case CommonCategory.Inday:
+                    break;
+            }
+
+            return listTypes;
+        }
+
         private int FindPacketSignature(Queue<byte> queue)
         {
             return 0;
@@ -1842,6 +1784,149 @@ namespace Drivers.Mercury23XDriver
 
         }
 
+        /// <summary>
+        /// открытие канала связи
+        /// </summary>
+        /// <returns></returns>
+        public bool OpenLinkCanal()
+        {
+            bool res = true;
+
+            // Тест канала связи
+            if (Test() == false)
+            {
+                return false;
+            }
+
+            // открытие канала связи
+            if (this.Open() == false)
+                return false;
+
+            // читаем версию счетчика
+            if (this.ReadVersionMeter() == false)
+                return false;
+
+            // читаем вариант исполнения счетчика
+            if (this.ReadVariantExecute() == false)
+                return false;
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// Чтение текущих показаний
+        /// </summary>
+        /// <param name="tarif">0 - по сумме тарифов, 1 - по 1му тарифу, и т.д.</param>
+        /// <param name="recordValue"></param>
+        /// <returns></returns>
+        public bool ReadCurrentValues(ushort param, ushort tarif, ref float recordValue)
+        {
+            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
+            {
+                if (param >= 0 && param <= 4)
+                {
+                    bool r = this.ReadCurrentMeterageToTarif(param, (byte)tarif, ref recordValue);
+                    recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
+                    return r;
+                }
+                else if (param >= 5)
+                {
+                    bool r2 = this.ReadAuxilaryParams(param, (byte)tarif, ref recordValue);
+                    recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
+                    return r2;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Чтение показаний на начало текущих суток
+        /// </summary>
+        /// <param name="date_time"></param>
+        /// <param name="recordValue"></param>
+        /// <returns></returns>
+        public bool ReadDailyValues(DateTime dt, ushort param, ushort tarif, ref float recordValue)
+        {
+            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
+            {
+                bool r = this.ReadDailyMeterageToTarif(param, (byte)tarif, ref recordValue);
+                recordValue = (float)Math.Round(recordValue, 2, MidpointRounding.AwayFromZero);
+                return r;
+            }
+
+
+            return false;
+        }
+
+        /// <summary>
+        /// Чтение показаний на начало месяца
+        /// </summary>
+        /// <param name="tarif"></param>
+        /// <param name="month"></param>
+        /// <param name="recordValue"></param>
+        /// <returns></returns>
+        public bool ReadMonthlyValues(DateTime dt, ushort param, ushort tarif, ref float recordValue)
+        {
+            if ((tarif == 0) | (((this.m_maskaTarif >> tarif) & 0x1) == 1))
+            {
+                return this.ReadMonthlyMeterageToTarif(param, (byte)tarif, (byte)dt.Month, ref recordValue);
+            }
+
+            return false;
+        }
+
+
+        // поиск получасовок, обертка, в которой выбирается метод поиска
+        public bool ReadPowerSlice(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
+        {
+            return this.ReadPowerSliceSlowAfterSW9(dt_begin, dt_end, ref listRPS, period);
+        }
+
+        #endregion
+
+        #region Вспомогательные функции (со временем нужно вынести в отдельную библиотеку)
+
+        /// <summary>
+        /// BCD в байт - в дальнейшем перенести в модуль служебных функций
+        /// </summary>
+        /// <param name="bcds"></param>
+        /// <returns></returns>
+        byte BCDToByte(byte bcds)
+        {
+            byte result = 0;
+
+            result = Convert.ToByte(10 * (byte)(bcds >> 4));
+            result += Convert.ToByte(bcds & 0xF);
+
+            return result;
+        }
+
+        /// <summary>
+        /// перевод из DEC в HEX
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private byte dec2hex(byte value)
+        {
+            return Convert.ToByte((value >> 4) * 10 + (value & 0xF));
+        }
+
+        /// <summary>
+        /// перевод из HEX в DEC
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private byte hex2dec(byte value)
+        {
+            return Convert.ToByte(((value / 10) << 4) + (value % 10));
+        }
+
+        #endregion
+
+        #region Неиспользуемые методы
+
         public bool SyncTime(DateTime dt)
         {
             return false;
@@ -1856,10 +1941,81 @@ namespace Drivers.Mercury23XDriver
         {
             return false;
         }
+
+        // возвращает дату последней инициализации массива срезов
+        public bool ReadSliceArrInitializationDate(ref DateTime lastInitDt)
+        {
+            /*
+            const bool WRITE_LOG = true;
+            byte firstRecordIndex = 0;
+            byte lastRecordIndex = 9;
+
+            byte[] cmnd = new byte[32];
+            byte[] answer = new byte[9];
+            byte[] command = new byte[] { 0x04, 0x0A };
+            byte status = 0;
+
+            cmnd[0] = command[0];
+            cmnd[1] = command[1];
+
+            List<DateTime> initJournal = new List<DateTime>(10);
+
+            for (byte i = firstRecordIndex; i <= lastRecordIndex; i++)
+            {
+                cmnd[2] = i;
+
+                if (!SendCommand(cmnd, ref answer, 3, 9, ref status))
+                    return false;
+
+                int year = (int)BCDToByte(answer[6]);
+                int month = (int)BCDToByte(answer[5]);
+                int day = (int)BCDToByte(answer[4]);
+                int hour = (int)BCDToByte(answer[3]);
+                int minute = (int)BCDToByte(answer[2]);
+
+                if (year > 0 && month > 0 && day > 0)
+                    year += 2000;
+                else
+                    continue;
+
+                try
+                {
+                    DateTime dt = new DateTime(year, month, day, hour, minute, 0);
+                    initJournal.Add(dt);
+                }
+                catch (Exception ex)
+                {
+                    WriteToLog("ReadSliceArrInitializationDate: запись " + i.ToString() + "некорректна: " + ex.Message);
+                    continue;
+                }
+            }
+
+            if (initJournal.Count == 0)
+            {
+                WriteToLog("ReadSliceArrInitializationDate: не найдено ни одной записи в журнале инициализации массива");
+                return false;
+            }
+
+            //переберем записанные даты в поисках наиболее свежей
+
+            DateTime latestDt = initJournal[0];
+            byte index = 0;
+            for (byte j = 0; j < initJournal.Count; j++)
+                if (initJournal[j] > latestDt) { latestDt = initJournal[j]; index = j; }
+
+            WriteToLog("ReadSliceArrInitializationDate: выбрана запись " + index.ToString() + ": " + latestDt.ToString(), WRITE_LOG);
+            lastInitDt = latestDt;
+            return true;
+             */
+            return false;
+        }
+
+
+        #endregion
     }
 
-        public enum Mercury23XMeterTypes
-        {
+    public enum Mercury23XMeterTypes
+    {
         //Трёхфазные многотарифные
         M236ART = 0x010F,
         M234ARTM2 = 0x0121,

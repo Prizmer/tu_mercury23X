@@ -301,9 +301,9 @@ namespace elfextendedapp
             ofd1.FileName = "FactoryNumbersTable";
             sfd1.FileName = ofd1.FileName;
 
-            if (!refreshSerialPortComboBox()) return;
-            if (!setVirtualSerialPort())  return;
-            if (!setXlsParser()) return;
+            refreshSerialPortComboBox();
+            setVirtualSerialPort();
+            setXlsParser();
 
             cbJustRead.Checked = true;
 
@@ -1353,22 +1353,19 @@ namespace elfextendedapp
                 serial = "No serial...";
             }
 
-            /*
-            if (!pd.ReadSoftwareVersion(ref sw))
+            int versionMeter = -1;
+            if (!pd.GetVersionMeter(ref versionMeter))
             {
-                sw = "No software version...";
+                sw = "Can't get software version...";
             }
-
-            if (!pd.ReadMeterType(ref mt))
+            else
             {
-                mt = "No meter type version...";
+                sw = versionMeter.ToString();
             }
-            */
 
             richTextBox1.Clear();
             richTextBox1.Text += serial + "\n";
             richTextBox1.Text += sw + "\n";
-            richTextBox1.Text += mt + "\n";
         }
 
         private void btnIndPollDaily_Click(object sender, EventArgs e)
@@ -1417,6 +1414,54 @@ namespace elfextendedapp
         private void richTextBox1_DoubleClick(object sender, EventArgs e)
         {
             richTextBox1.Clear();
+        }
+
+        private void btnReadHalfs_MouseCaptureChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReadHalfs_Click(object sender, EventArgs e)
+        {
+            Mercury23XDriver pd = new Mercury23XDriver();
+            pd.Init(uint.Parse(textBox1.Text), "", Vp);
+
+            richTextBox1.Clear();
+            if (!pd.OpenLinkCanal()) richTextBox1.Text += "Не удалось открыть канал связи...;\n";
+
+            List<RecordPowerSlice> rpsList = new List<RecordPowerSlice>();
+            DateTime dtFrom = this.dateTimePicker1.Value;
+            DateTime dtTo = dateTimePicker2.Value;
+
+            if (checkBox1.Checked)
+            {
+                //old routine method
+                richTextBox1.Text += "Выполняем старый медленный метод;\n\n";
+                if (!pd.ReadPowerSliceSlowAfterSW9(dtFrom, dtTo, ref rpsList, 30))
+                {
+                    richTextBox1.Text += "Метод ReadPowerSliceSlowAfterSW9 вернул false...;\n";
+                    return;
+                }
+            } else
+            {
+                //new fast one
+                richTextBox1.Text += "Выполняем новый быстрый метод;\n\n";
+                if (!pd.ReadPowerSlice(dtFrom, dtTo, ref rpsList, 30))
+                {
+                    richTextBox1.Text += "Метод ReadPowerSlice вернул false...;\n";
+                    return;
+                }
+            }
+
+            for (int i = 0; i < rpsList.Count; i++)
+            {
+                RecordPowerSlice tmpRps = rpsList[i];
+                string str = String.Format("Ap{0};Am{1};Rp{2};Rm{3};St:{4};\n", 
+                    tmpRps.APlus, tmpRps.AMinus, tmpRps.RPlus, tmpRps.RMinus, tmpRps.status);
+                richTextBox1.Text += str;
+            }
+
+
         }
     }
 
