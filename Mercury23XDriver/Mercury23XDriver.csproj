@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LibMeter">
-      <HintPath>..\teplouchetapp\bin\Debug\LibMeter.dll</HintPath>
+      <HintPath>..\..\..\PollServer\LibMeter\bin\Debug\LibMeter.dll</HintPath>
     </Reference>
     <Reference Include="PortsLib">
-      <HintPath>..\teplouchetapp\bin\Debug\PortsLib.dll</HintPath>
+      <HintPath>..\..\..\PollServer\PortsLib\bin\Debug\PortsLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
