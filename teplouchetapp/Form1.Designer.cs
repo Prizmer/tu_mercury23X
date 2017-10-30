@@ -258,7 +258,7 @@
             0,
             0});
             this.numericUpDownComReadTimeout.Minimum = new decimal(new int[] {
-            600,
+            300,
             0,
             0,
             0});
@@ -446,6 +446,7 @@
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Индивидуальный блок";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // dateTimePicker2
             // 
@@ -453,6 +454,7 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(109, 20);
             this.dateTimePicker2.TabIndex = 71;
+            this.dateTimePicker2.Value = new System.DateTime(2017, 10, 30, 23, 30, 0, 0);
             // 
             // label9
             // 
@@ -478,6 +480,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(109, 20);
             this.dateTimePicker1.TabIndex = 67;
+            this.dateTimePicker1.Value = new System.DateTime(2017, 10, 30, 0, 0, 0, 0);
             // 
             // checkBox1
             // 
@@ -546,7 +549,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(43, 20);
             this.textBoxPort.TabIndex = 54;
-            this.textBoxPort.Text = "3003";
+            this.textBoxPort.Text = "7001";
             // 
             // textBoxIp
             // 
@@ -555,7 +558,7 @@
             this.textBoxIp.Name = "textBoxIp";
             this.textBoxIp.Size = new System.Drawing.Size(75, 20);
             this.textBoxIp.TabIndex = 53;
-            this.textBoxIp.Text = "192.168.23.32";
+            this.textBoxIp.Text = "192.168.23.71";
             // 
             // label2
             // 
@@ -574,7 +577,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(135, 20);
             this.textBox1.TabIndex = 49;
-            this.textBox1.Text = "140923";
+            this.textBox1.Text = "63";
             // 
             // pictureBoxLogo
             // 

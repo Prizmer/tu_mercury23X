@@ -1352,7 +1352,7 @@ namespace Drivers.Mercury23XDriver
         //метрики
         public long elMsLastSlice, elMsBeforeReadSliceCall, elMsReadSlicem, elMsWholeCycle;
 
-        private bool ReadPowerSliceSlowBeforeSW9(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
+        public bool ReadPowerSliceSlowBeforeSW9(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
         {
             ushort addr_before = 0;
             ushort addr_after = 0;
@@ -1515,7 +1515,7 @@ namespace Drivers.Mercury23XDriver
         public bool ReadPowerSliceSlowAfterSW9(DateTime dt_begin, DateTime dt_end, ref List<RecordPowerSlice> listRPS, byte period)
         {
             //
-            if (this.m_version < 90000)
+            if (this.m_version < 80000)
             {
                 WriteToLog("ReadPowerSlice: выполняю метод для 230х, версия " + this.m_version);
                 return this.ReadPowerSliceSlowBeforeSW9(dt_begin, dt_end, ref listRPS, period);
@@ -1732,6 +1732,12 @@ namespace Drivers.Mercury23XDriver
 
         private int FindPacketSignature(Queue<byte> queue)
         {
+            byte[] arr = queue.ToArray();
+            Array.Reverse(arr);
+
+            if (this.FinishAccept(arr, Convert.ToUInt16(queue.Count)))
+                return 1;
+
             return 0;
         }
 
@@ -1793,10 +1799,10 @@ namespace Drivers.Mercury23XDriver
             bool res = true;
 
             // Тест канала связи
-            if (Test() == false)
-            {
-                return false;
-            }
+            //if (Test() == false)
+           // {
+            //    return false;
+            //}
 
             // открытие канала связи
             if (this.Open() == false)

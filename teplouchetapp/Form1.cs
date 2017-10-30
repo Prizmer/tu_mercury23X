@@ -105,7 +105,7 @@ namespace elfextendedapp
                     buttonExport.Enabled = false;
                     label1.Enabled = false;
                     buttonStop.Enabled = false;
-                    numericUpDownComReadTimeout.Enabled = false;
+                   // numericUpDownComReadTimeout.Enabled = false;
                     checkBoxPollOffline.Enabled = true;
                 }
                 else
@@ -1302,12 +1302,12 @@ namespace elfextendedapp
             if (cb.Checked)
             {
                 comboBoxComPorts.Enabled = false;
-                numericUpDownComReadTimeout.Enabled = false;
+                //numericUpDownComReadTimeout.Enabled = false;
             }
             else
             {
                 comboBoxComPorts.Enabled = true;
-                numericUpDownComReadTimeout.Enabled = true;
+               // numericUpDownComReadTimeout.Enabled = true;
             }
             setVirtualSerialPort();
         }
@@ -1346,7 +1346,8 @@ namespace elfextendedapp
             string serial = "", sw = "", mt = "";
 
             Mercury23XDriver pd = new Mercury23XDriver();
-            pd.Init(uint.Parse(textBox1.Text), "", Vp);
+            pd.Init(uint.Parse(textBox1.Text), "111111", Vp);
+            
 
             if (!pd.ReadSerialNumber(ref serial))
             {
@@ -1424,20 +1425,24 @@ namespace elfextendedapp
         private void btnReadHalfs_Click(object sender, EventArgs e)
         {
             Mercury23XDriver pd = new Mercury23XDriver();
-            pd.Init(uint.Parse(textBox1.Text), "", Vp);
+            pd.Init(uint.Parse(textBox1.Text), "111111", Vp);
 
             richTextBox1.Clear();
             if (!pd.OpenLinkCanal()) richTextBox1.Text += "Не удалось открыть канал связи...;\n";
 
             List<RecordPowerSlice> rpsList = new List<RecordPowerSlice>();
-            DateTime dtFrom = this.dateTimePicker1.Value;
+            DateTime dtFrom = new DateTime(dateTimePicker1.Value.Year, dateTimePicker1
+                .Value.Month, dateTimePicker1.Value.Day, 0, 0, 0);
             DateTime dtTo = dateTimePicker2.Value;
+
+            richTextBox1.Text += "Fr: " + dtFrom + "\n";
+            richTextBox1.Text += "To: " + dtTo + "\n";
 
             if (checkBox1.Checked)
             {
                 //old routine method
-                richTextBox1.Text += "Выполняем старый медленный метод;\n\n";
-                if (!pd.ReadPowerSliceSlowAfterSW9(dtFrom, dtTo, ref rpsList, 30))
+                richTextBox1.Text += "Выполняем старый метод;\n\n";
+                if (!pd.ReadPowerSliceSlowBeforeSW9(dtFrom, dtTo, ref rpsList, 30))
                 {
                     richTextBox1.Text += "Метод ReadPowerSliceSlowAfterSW9 вернул false...;\n";
                     return;
@@ -1445,7 +1450,7 @@ namespace elfextendedapp
             } else
             {
                 //new fast one
-                richTextBox1.Text += "Выполняем новый быстрый метод;\n\n";
+                richTextBox1.Text += "Выполняем новый > 9000 метод;\n\n";
                 if (!pd.ReadPowerSlice(dtFrom, dtTo, ref rpsList, 30))
                 {
                     richTextBox1.Text += "Метод ReadPowerSlice вернул false...;\n";
@@ -1461,6 +1466,11 @@ namespace elfextendedapp
                 richTextBox1.Text += str;
             }
 
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
         }
     }
