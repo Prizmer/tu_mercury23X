@@ -40,7 +40,7 @@ namespace elfextendedapp
 
             InputDataReady = false;
 
-            checkBoxTcp.Checked = true;
+
         }
 
         //при опросе или тесте связи
@@ -190,7 +190,7 @@ namespace elfextendedapp
                 }
                 else
                 {
-                    WriteToStatus("В системе не найдены доступные COM порты");
+                    // WriteToStatus("В системе не найдены доступные COM порты");
                     return false;
                 }
             }
@@ -226,7 +226,7 @@ namespace elfextendedapp
                 {
                     //TODO: сделать это подсосом из xml
                     NameValueCollection loadedAppSettings = new NameValueCollection();
-                    loadedAppSettings.Add("localEndPointIp", "192.168.23.1");
+                    loadedAppSettings.Add("localEndPointIp", this.listBox1.SelectedItem.ToString());
 
                     Vp = new TcpipPort(textBoxIp.Text, int.Parse(textBoxPort.Text), write_timeout, read_timeout, 50, loadedAppSettings);
                 }
@@ -301,22 +301,38 @@ namespace elfextendedapp
             ofd1.FileName = "FactoryNumbersTable";
             sfd1.FileName = ofd1.FileName;
 
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    this.listBox1.Items.Add(ip.ToString());
+                }
+            }
+
+            this.listBox1.SelectedIndex = 0;
+
+            checkBoxTcp.Checked = true;
+
             refreshSerialPortComboBox();
             setVirtualSerialPort();
             setXlsParser();
 
             cbJustRead.Checked = true;
 
+
             //привязываются здесь, чтобы можно было выше задать значения без вызова обработчиков
             comboBoxComPorts.SelectedIndexChanged += new EventHandler(comboBoxComPorts_SelectedIndexChanged);
             numericUpDownComReadTimeout.ValueChanged +=new EventHandler(numericUpDownComReadTimeout_ValueChanged);
             numericUpDownComWriteTimeout.ValueChanged += new EventHandler(numericUpDownComWriteTimeout_ValueChanged);
-            
+            checkBoxTcp.CheckedChanged += new EventHandler(checkBoxTcp_CheckedChanged);
+
             meterPinged += new EventHandler(Form1_meterPinged);
             pollingEnd += new EventHandler(Form1_pollingEnd);
 
             richTextBox1.Clear();
             richTextBox1.Text += "Поддерживаемые версии:\n";
+
 
             /*
             foreach (string s in Enum.GetNames(typeof(Mercury23XMeterTypes)))
@@ -735,7 +751,7 @@ namespace elfextendedapp
                         {
                             //TODO: сделать это подсосом из xml
                             NameValueCollection loadedAppSettings = new NameValueCollection();
-                            loadedAppSettings.Add("localEndPointIp", "192.168.23.1");
+                            loadedAppSettings.Add("localEndPointIp", this.listBox1.SelectedItem.ToString());
 
                             Vp = new TcpipPort(dt.Rows[i][3].ToString(), int.Parse(dt.Rows[i][4].ToString()), 600, 1000, 50, loadedAppSettings);
                         }
@@ -1045,7 +1061,7 @@ namespace elfextendedapp
                         {
                             //TODO: сделать это подсосом из xml
                             NameValueCollection loadedAppSettings = new NameValueCollection();
-                            loadedAppSettings.Add("localEndPointIp", "192.168.23.1");
+                            loadedAppSettings.Add("localEndPointIp", this.listBox1.SelectedItem.ToString());
 
                             Vp = new TcpipPort(dt.Rows[i][3].ToString(), int.Parse(dt.Rows[i][4].ToString()), 600, 1000, 50, loadedAppSettings);
                         }

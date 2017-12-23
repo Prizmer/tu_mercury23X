@@ -77,6 +77,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbJustRead = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownComReadTimeout)).BeginInit();
@@ -339,7 +341,6 @@
             this.checkBoxTcp.Text = "TCP";
             this.toolTip1.SetToolTip(this.checkBoxTcp, "Активировать режим связи по TCP/IP");
             this.checkBoxTcp.UseVisualStyleBackColor = true;
-            this.checkBoxTcp.CheckedChanged += new System.EventHandler(this.checkBoxTcp_CheckedChanged);
             // 
             // btnIndPollDaily
             // 
@@ -549,7 +550,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(43, 20);
             this.textBoxPort.TabIndex = 54;
-            this.textBoxPort.Text = "7001";
+            this.textBoxPort.Text = "4001";
             // 
             // textBoxIp
             // 
@@ -558,7 +559,7 @@
             this.textBoxIp.Name = "textBoxIp";
             this.textBoxIp.Size = new System.Drawing.Size(75, 20);
             this.textBoxIp.TabIndex = 53;
-            this.textBoxIp.Text = "192.168.23.71";
+            this.textBoxIp.Text = "192.168.1.115";
             // 
             // label2
             // 
@@ -577,7 +578,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(135, 20);
             this.textBox1.TabIndex = 49;
-            this.textBox1.Text = "63";
+            this.textBox1.Text = "1";
             // 
             // pictureBoxLogo
             // 
@@ -622,17 +623,36 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(230, 439);
+            this.richTextBox1.Size = new System.Drawing.Size(230, 349);
             this.richTextBox1.TabIndex = 54;
             this.richTextBox1.Text = "";
             this.richTextBox1.DockChanged += new System.EventHandler(this.richTextBox1_DoubleClick);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(621, 384);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(230, 69);
+            this.listBox1.TabIndex = 55;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(621, 359);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(130, 13);
+            this.label10.TabIndex = 56;
+            this.label10.Text = "Выберите локальный ip:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(858, 483);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.cbJustRead);
             this.Controls.Add(this.label5);
@@ -720,6 +740,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label10;
     }
 }
 
