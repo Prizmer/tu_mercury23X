@@ -1364,6 +1364,11 @@ namespace elfextendedapp
             Mercury23XDriver pd = new Mercury23XDriver();
             pd.Init(uint.Parse(textBox1.Text), "111111", Vp);
             
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text +="No chanel opened...";
+            }
 
             if (!pd.ReadSerialNumber(ref serial))
             {
