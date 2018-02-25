@@ -43,6 +43,9 @@ namespace elfextendedapp
 
         }
 
+
+        private string passwordDefault = "111111";
+
         //при опросе или тесте связи
         bool bInProcess = false;
         public bool InProgress
@@ -1362,7 +1365,7 @@ namespace elfextendedapp
             string serial = "", sw = "", mt = "";
 
             Mercury23XDriver pd = new Mercury23XDriver();
-            pd.Init(uint.Parse(textBox1.Text), "111111", Vp);
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
             
             if (!pd.OpenLinkCanal())
             {
@@ -1395,7 +1398,7 @@ namespace elfextendedapp
             Mercury23XDriver pd = new Mercury23XDriver();
             Values vals = new Values();
 
-            pd.Init(uint.Parse(textBox1.Text), "", Vp);
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
 
             if (!pd.OpenLinkCanal())
             {
@@ -1419,7 +1422,7 @@ namespace elfextendedapp
             Mercury23XDriver pd = new Mercury23XDriver();
             Values vals = new Values();
 
-            pd.Init(uint.Parse(textBox1.Text), "", Vp);
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
 
             if (!pd.OpenLinkCanal())
             {
@@ -1457,7 +1460,7 @@ namespace elfextendedapp
         private void btnReadHalfs_Click(object sender, EventArgs e)
         {
             Mercury23XDriver pd = new Mercury23XDriver();
-            pd.Init(uint.Parse(textBox1.Text), "111111", Vp);
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
 
             richTextBox1.Clear();
             if (!pd.OpenLinkCanal()) richTextBox1.Text += "Не удалось открыть канал связи...;\n";

@@ -220,6 +220,9 @@ namespace Drivers.Mercury23XDriver
                 return false;
             }
 
+            if (answer.Length < size)
+                return false;
+
             // проверяем адрес прибора в ответе
             if (answer[0] != this.m_address)
             {
@@ -232,7 +235,7 @@ namespace Drivers.Mercury23XDriver
             for (int i = 0; i < 2; i++)
                 crc[i] = answer[size - 2 + i];
 
-            if (crc.Equals(this.m_crc))
+            if (answer[size - 2] != this.m_crc[0] || answer[size - 1] != this.m_crc[1])
             {
                 return false;
             }
