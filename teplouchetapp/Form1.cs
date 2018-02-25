@@ -1397,6 +1397,11 @@ namespace elfextendedapp
 
             pd.Init(uint.Parse(textBox1.Text), "", Vp);
 
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text += "No chanel opened...";
+            }
 
             float rVal = 0f;
             if (pd.ReadDailyValues(DateTime.Now.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
@@ -1416,6 +1421,12 @@ namespace elfextendedapp
 
             pd.Init(uint.Parse(textBox1.Text), "", Vp);
 
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text += "No chanel opened...";
+            }
+
 
             float rVal = 0f;
             if (pd.ReadCurrentValues((ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
@@ -1430,7 +1441,7 @@ namespace elfextendedapp
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
+            ((RichTextBox)sender).Clear();
         }
 
         private void richTextBox1_DoubleClick(object sender, EventArgs e)

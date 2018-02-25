@@ -92,10 +92,10 @@
             // buttonImport
             // 
             this.buttonImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonImport.Location = new System.Drawing.Point(187, 4);
-            this.buttonImport.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonImport.Location = new System.Drawing.Point(249, 5);
+            this.buttonImport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonImport.Name = "buttonImport";
-            this.buttonImport.Size = new System.Drawing.Size(97, 25);
+            this.buttonImport.Size = new System.Drawing.Size(129, 31);
             this.buttonImport.TabIndex = 3;
             this.buttonImport.Text = "Импорт (*.xls)";
             this.toolTip1.SetToolTip(this.buttonImport, "Загрузить таблицу содержающую столбец с номерами квартир и столбец с заводскими н" +
@@ -127,8 +127,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv1.Location = new System.Drawing.Point(5, 72);
-            this.dgv1.Margin = new System.Windows.Forms.Padding(2);
+            this.dgv1.Location = new System.Drawing.Point(7, 89);
+            this.dgv1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv1.Name = "dgv1";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -139,7 +139,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv1.RowTemplate.Height = 28;
-            this.dgv1.Size = new System.Drawing.Size(611, 246);
+            this.dgv1.Size = new System.Drawing.Size(815, 303);
             this.dgv1.TabIndex = 4;
             // 
             // ofd1
@@ -150,10 +150,10 @@
             // 
             this.buttonPing.Enabled = false;
             this.buttonPing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPing.Location = new System.Drawing.Point(101, 36);
-            this.buttonPing.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPing.Location = new System.Drawing.Point(135, 44);
+            this.buttonPing.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPing.Name = "buttonPing";
-            this.buttonPing.Size = new System.Drawing.Size(83, 25);
+            this.buttonPing.Size = new System.Drawing.Size(111, 31);
             this.buttonPing.TabIndex = 5;
             this.buttonPing.Text = "Тест связи";
             this.toolTip1.SetToolTip(this.buttonPing, "Выполняется только проверка связи без получения каких-либо данных со счетчика");
@@ -164,10 +164,10 @@
             // 
             this.buttonPoll.Enabled = false;
             this.buttonPoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPoll.Location = new System.Drawing.Point(187, 36);
-            this.buttonPoll.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPoll.Location = new System.Drawing.Point(249, 44);
+            this.buttonPoll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPoll.Name = "buttonPoll";
-            this.buttonPoll.Size = new System.Drawing.Size(83, 25);
+            this.buttonPoll.Size = new System.Drawing.Size(111, 31);
             this.buttonPoll.TabIndex = 6;
             this.buttonPoll.Text = "Опрос";
             this.toolTip1.SetToolTip(this.buttonPoll, "Выполняются проверка связи и опрос счетчика по текущим значениям");
@@ -178,10 +178,10 @@
             // 
             this.buttonExport.Enabled = false;
             this.buttonExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExport.Location = new System.Drawing.Point(287, 4);
-            this.buttonExport.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonExport.Location = new System.Drawing.Point(383, 5);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(97, 25);
+            this.buttonExport.Size = new System.Drawing.Size(129, 31);
             this.buttonExport.TabIndex = 41;
             this.buttonExport.Text = "Экспорт (*.xls)";
             this.toolTip1.SetToolTip(this.buttonExport, "Сохранить полученные в программе данные");
@@ -192,10 +192,10 @@
             // 
             this.comboBoxComPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxComPorts.FormattingEnabled = true;
-            this.comboBoxComPorts.Location = new System.Drawing.Point(8, 8);
-            this.comboBoxComPorts.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxComPorts.Location = new System.Drawing.Point(11, 10);
+            this.comboBoxComPorts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxComPorts.Name = "comboBoxComPorts";
-            this.comboBoxComPorts.Size = new System.Drawing.Size(85, 21);
+            this.comboBoxComPorts.Size = new System.Drawing.Size(112, 24);
             this.comboBoxComPorts.TabIndex = 42;
             this.toolTip1.SetToolTip(this.comboBoxComPorts, "Системный последовательный порт");
             // 
@@ -206,10 +206,10 @@
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 461);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 568);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(858, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1144, 26);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 43;
             this.statusStrip1.Text = "statusStrip1";
@@ -217,27 +217,27 @@
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(133, 16);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(177, 20);
             this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 21);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 21);
             // 
             // buttonStop
             // 
             this.buttonStop.Enabled = false;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStop.Location = new System.Drawing.Point(379, 36);
-            this.buttonStop.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonStop.Location = new System.Drawing.Point(505, 44);
+            this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(77, 25);
+            this.buttonStop.Size = new System.Drawing.Size(103, 31);
             this.buttonStop.TabIndex = 44;
             this.buttonStop.Text = "Стоп";
             this.toolTip1.SetToolTip(this.buttonStop, "Прекращает длительные процессы в программе и закрывает системный порт");
@@ -252,8 +252,8 @@
             0,
             0,
             0});
-            this.numericUpDownComReadTimeout.Location = new System.Drawing.Point(101, 10);
-            this.numericUpDownComReadTimeout.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownComReadTimeout.Location = new System.Drawing.Point(135, 12);
+            this.numericUpDownComReadTimeout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownComReadTimeout.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -265,7 +265,7 @@
             0,
             0});
             this.numericUpDownComReadTimeout.Name = "numericUpDownComReadTimeout";
-            this.numericUpDownComReadTimeout.Size = new System.Drawing.Size(46, 16);
+            this.numericUpDownComReadTimeout.Size = new System.Drawing.Size(61, 18);
             this.numericUpDownComReadTimeout.TabIndex = 45;
             this.toolTip1.SetToolTip(this.numericUpDownComReadTimeout, "Время ожидания ответа одного счетчика");
             this.numericUpDownComReadTimeout.Value = new decimal(new int[] {
@@ -277,10 +277,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(151, 13);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(201, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 13);
+            this.label1.Size = new System.Drawing.Size(24, 17);
             this.label1.TabIndex = 46;
             this.label1.Text = "мс";
             // 
@@ -288,10 +287,10 @@
             // 
             this.checkBoxPollOffline.AutoSize = true;
             this.checkBoxPollOffline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxPollOffline.Location = new System.Drawing.Point(460, 40);
-            this.checkBoxPollOffline.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxPollOffline.Location = new System.Drawing.Point(613, 49);
+            this.checkBoxPollOffline.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPollOffline.Name = "checkBoxPollOffline";
-            this.checkBoxPollOffline.Size = new System.Drawing.Size(95, 17);
+            this.checkBoxPollOffline.Size = new System.Drawing.Size(119, 21);
             this.checkBoxPollOffline.TabIndex = 47;
             this.checkBoxPollOffline.Text = "Только не отв";
             this.toolTip1.SetToolTip(this.checkBoxPollOffline, "Если флаг снят, работаем в режиме записи");
@@ -307,8 +306,8 @@
             0,
             0,
             0});
-            this.numericUpDownComWriteTimeout.Location = new System.Drawing.Point(443, 34);
-            this.numericUpDownComWriteTimeout.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownComWriteTimeout.Location = new System.Drawing.Point(591, 42);
+            this.numericUpDownComWriteTimeout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownComWriteTimeout.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -320,7 +319,7 @@
             0,
             0});
             this.numericUpDownComWriteTimeout.Name = "numericUpDownComWriteTimeout";
-            this.numericUpDownComWriteTimeout.Size = new System.Drawing.Size(46, 16);
+            this.numericUpDownComWriteTimeout.Size = new System.Drawing.Size(61, 18);
             this.numericUpDownComWriteTimeout.TabIndex = 56;
             this.toolTip1.SetToolTip(this.numericUpDownComWriteTimeout, "Время по прошествии которого происходит таймаут записи. Не используется в данной " +
         "версии.");
@@ -333,10 +332,10 @@
             // checkBoxTcp
             // 
             this.checkBoxTcp.AutoSize = true;
-            this.checkBoxTcp.Location = new System.Drawing.Point(301, 36);
-            this.checkBoxTcp.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxTcp.Location = new System.Drawing.Point(401, 44);
+            this.checkBoxTcp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxTcp.Name = "checkBoxTcp";
-            this.checkBoxTcp.Size = new System.Drawing.Size(47, 17);
+            this.checkBoxTcp.Size = new System.Drawing.Size(57, 21);
             this.checkBoxTcp.TabIndex = 55;
             this.checkBoxTcp.Text = "TCP";
             this.toolTip1.SetToolTip(this.checkBoxTcp, "Активировать режим связи по TCP/IP");
@@ -345,10 +344,10 @@
             // btnIndPollDaily
             // 
             this.btnIndPollDaily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIndPollDaily.Location = new System.Drawing.Point(50, 101);
-            this.btnIndPollDaily.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIndPollDaily.Location = new System.Drawing.Point(67, 124);
+            this.btnIndPollDaily.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIndPollDaily.Name = "btnIndPollDaily";
-            this.btnIndPollDaily.Size = new System.Drawing.Size(38, 23);
+            this.btnIndPollDaily.Size = new System.Drawing.Size(51, 28);
             this.btnIndPollDaily.TabIndex = 52;
             this.btnIndPollDaily.Text = "С";
             this.toolTip1.SetToolTip(this.btnIndPollDaily, "Суточный параметр");
@@ -358,10 +357,10 @@
             // btnIndPollCurrent
             // 
             this.btnIndPollCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIndPollCurrent.Location = new System.Drawing.Point(8, 101);
-            this.btnIndPollCurrent.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIndPollCurrent.Location = new System.Drawing.Point(11, 124);
+            this.btnIndPollCurrent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIndPollCurrent.Name = "btnIndPollCurrent";
-            this.btnIndPollCurrent.Size = new System.Drawing.Size(38, 23);
+            this.btnIndPollCurrent.Size = new System.Drawing.Size(51, 28);
             this.btnIndPollCurrent.TabIndex = 59;
             this.btnIndPollCurrent.Text = "Т";
             this.toolTip1.SetToolTip(this.btnIndPollCurrent, "Текущий параетр");
@@ -371,9 +370,10 @@
             // cbFromFileTcp
             // 
             this.cbFromFileTcp.AutoSize = true;
-            this.cbFromFileTcp.Location = new System.Drawing.Point(531, 32);
+            this.cbFromFileTcp.Location = new System.Drawing.Point(708, 39);
+            this.cbFromFileTcp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbFromFileTcp.Name = "cbFromFileTcp";
-            this.cbFromFileTcp.Size = new System.Drawing.Size(75, 17);
+            this.cbFromFileTcp.Size = new System.Drawing.Size(94, 21);
             this.cbFromFileTcp.TabIndex = 61;
             this.cbFromFileTcp.Text = "Из файла";
             this.toolTip1.SetToolTip(this.cbFromFileTcp, "Брать адрес и порт из загружаемой таблицы");
@@ -381,18 +381,19 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(69, 76);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDown2.Location = new System.Drawing.Point(92, 94);
+            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(56, 20);
+            this.numericUpDown2.Size = new System.Drawing.Size(75, 22);
             this.numericUpDown2.TabIndex = 62;
             this.toolTip1.SetToolTip(this.numericUpDown2, "Тариф");
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(8, 76);
+            this.numericUpDown1.Location = new System.Drawing.Point(11, 94);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(56, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(75, 22);
             this.numericUpDown1.TabIndex = 54;
             this.toolTip1.SetToolTip(this.numericUpDown1, "Адрес");
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -404,10 +405,10 @@
             // btnReadHalfs
             // 
             this.btnReadHalfs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReadHalfs.Location = new System.Drawing.Point(162, 76);
-            this.btnReadHalfs.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReadHalfs.Location = new System.Drawing.Point(216, 94);
+            this.btnReadHalfs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReadHalfs.Name = "btnReadHalfs";
-            this.btnReadHalfs.Size = new System.Drawing.Size(38, 23);
+            this.btnReadHalfs.Size = new System.Drawing.Size(51, 28);
             this.btnReadHalfs.TabIndex = 63;
             this.btnReadHalfs.Text = "ПЧ";
             this.toolTip1.SetToolTip(this.btnReadHalfs, "Получасовки за период");
@@ -439,11 +440,11 @@
             this.groupBox1.Controls.Add(this.btnIndPollDaily);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(5, 322);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(7, 396);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(611, 137);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(815, 169);
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Индивидуальный блок";
@@ -451,44 +452,49 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(322, 78);
+            this.dateTimePicker2.Location = new System.Drawing.Point(429, 96);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(109, 20);
+            this.dateTimePicker2.Size = new System.Drawing.Size(144, 22);
             this.dateTimePicker2.TabIndex = 71;
             this.dateTimePicker2.Value = new System.DateTime(2017, 10, 30, 23, 30, 0, 0);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(319, 61);
+            this.label9.Location = new System.Drawing.Point(425, 75);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 13);
+            this.label9.Size = new System.Drawing.Size(75, 17);
             this.label9.TabIndex = 70;
             this.label9.Text = "Читать по";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(204, 60);
+            this.label8.Location = new System.Drawing.Point(272, 74);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.Size = new System.Drawing.Size(66, 17);
             this.label8.TabIndex = 68;
             this.label8.Text = "Читать с";
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(207, 78);
+            this.dateTimePicker1.Location = new System.Drawing.Point(276, 96);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(109, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(144, 22);
             this.dateTimePicker1.TabIndex = 67;
             this.dateTimePicker1.Value = new System.DateTime(2017, 10, 30, 0, 0, 0, 0);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(162, 107);
+            this.checkBox1.Location = new System.Drawing.Point(216, 132);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(98, 17);
+            this.checkBox1.Size = new System.Drawing.Size(124, 21);
             this.checkBox1.TabIndex = 66;
             this.checkBox1.Text = "Старый метод";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -496,28 +502,30 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(66, 60);
+            this.label7.Location = new System.Drawing.Point(88, 74);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 13);
+            this.label7.Size = new System.Drawing.Size(52, 17);
             this.label7.TabIndex = 65;
             this.label7.Text = "Тариф";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 60);
+            this.label6.Location = new System.Drawing.Point(9, 74);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.Size = new System.Drawing.Size(48, 17);
             this.label6.TabIndex = 64;
             this.label6.Text = "Адрес";
             // 
             // btnIndPollInfo
             // 
             this.btnIndPollInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIndPollInfo.Location = new System.Drawing.Point(470, 76);
-            this.btnIndPollInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIndPollInfo.Location = new System.Drawing.Point(627, 94);
+            this.btnIndPollInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIndPollInfo.Name = "btnIndPollInfo";
-            this.btnIndPollInfo.Size = new System.Drawing.Size(80, 45);
+            this.btnIndPollInfo.Size = new System.Drawing.Size(107, 55);
             this.btnIndPollInfo.TabIndex = 60;
             this.btnIndPollInfo.Text = "Инфо";
             this.btnIndPollInfo.UseVisualStyleBackColor = true;
@@ -526,57 +534,54 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(440, 18);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(587, 22);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 13);
+            this.label4.Size = new System.Drawing.Size(114, 17);
             this.label4.TabIndex = 58;
             this.label4.Text = "Таймаут записи";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(493, 37);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(657, 46);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 13);
+            this.label3.Size = new System.Drawing.Size(24, 17);
             this.label3.TabIndex = 57;
             this.label3.Text = "мс";
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(241, 34);
-            this.textBoxPort.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPort.Location = new System.Drawing.Point(321, 42);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(43, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(56, 22);
             this.textBoxPort.TabIndex = 54;
             this.textBoxPort.Text = "4001";
             // 
             // textBoxIp
             // 
-            this.textBoxIp.Location = new System.Drawing.Point(162, 34);
-            this.textBoxIp.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxIp.Location = new System.Drawing.Point(216, 42);
+            this.textBoxIp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxIp.Name = "textBoxIp";
-            this.textBoxIp.Size = new System.Drawing.Size(75, 20);
+            this.textBoxIp.Size = new System.Drawing.Size(99, 22);
             this.textBoxIp.TabIndex = 53;
             this.textBoxIp.Text = "192.168.1.115";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 18);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(7, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.Size = new System.Drawing.Size(149, 17);
             this.label2.TabIndex = 50;
-            this.label2.Text = "Серийный номер";
+            this.label2.Text = "Сетевой номер (dec):";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(8, 34);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Location = new System.Drawing.Point(11, 42);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(135, 20);
+            this.textBox1.Size = new System.Drawing.Size(179, 22);
             this.textBox1.TabIndex = 49;
             this.textBox1.Text = "1";
             // 
@@ -586,10 +591,10 @@
             this.pictureBoxLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxLogo.Image = global::elfextendedapp.Properties.Resources.pi_logo_2;
             this.pictureBoxLogo.InitialImage = null;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(556, 4);
-            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(741, 5);
+            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(61, 59);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(80, 72);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxLogo.TabIndex = 50;
             this.pictureBoxLogo.TabStop = false;
@@ -599,31 +604,31 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(414, 1);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(552, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 26);
+            this.label5.Size = new System.Drawing.Size(147, 31);
             this.label5.TabIndex = 51;
             this.label5.Text = "Меркурий";
             // 
             // cbJustRead
             // 
             this.cbJustRead.AutoSize = true;
-            this.cbJustRead.Location = new System.Drawing.Point(287, 41);
+            this.cbJustRead.Location = new System.Drawing.Point(383, 50);
+            this.cbJustRead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbJustRead.Name = "cbJustRead";
-            this.cbJustRead.Size = new System.Drawing.Size(63, 17);
+            this.cbJustRead.Size = new System.Drawing.Size(79, 21);
             this.cbJustRead.TabIndex = 53;
             this.cbJustRead.Text = "Чтение";
             this.cbJustRead.UseVisualStyleBackColor = true;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(621, 4);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox1.Location = new System.Drawing.Point(828, 5);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(230, 349);
+            this.richTextBox1.Size = new System.Drawing.Size(305, 429);
             this.richTextBox1.TabIndex = 54;
             this.richTextBox1.Text = "";
             this.richTextBox1.DockChanged += new System.EventHandler(this.richTextBox1_DoubleClick);
@@ -632,25 +637,28 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(621, 384);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(828, 473);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(230, 69);
+            this.listBox1.Size = new System.Drawing.Size(305, 84);
             this.listBox1.TabIndex = 55;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(621, 359);
+            this.label10.Location = new System.Drawing.Point(828, 442);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(130, 13);
+            this.label10.Size = new System.Drawing.Size(169, 17);
             this.label10.TabIndex = 56;
             this.label10.Text = "Выберите локальный ip:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(858, 483);
+            this.ClientSize = new System.Drawing.Size(1144, 594);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.richTextBox1);
@@ -672,7 +680,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Заголовок генерируется автоматически";
