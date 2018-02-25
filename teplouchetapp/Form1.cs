@@ -1441,7 +1441,7 @@ namespace elfextendedapp
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            ((RichTextBox)sender).Clear();
+
         }
 
         private void richTextBox1_DoubleClick(object sender, EventArgs e)
@@ -1504,6 +1504,11 @@ namespace elfextendedapp
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void richTextBox1_DoubleClick_1(object sender, EventArgs e)
+        {
+            ((RichTextBox)sender).Clear();
         }
     }
 
