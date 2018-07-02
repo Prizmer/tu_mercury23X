@@ -1531,6 +1531,8 @@ namespace elfextendedapp
             if (pd.ReadMonthlyValues(DateTime.Now.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
             {
                 richTextBox1.Text += rVal + ";\n";
+                float roundedVal = (float)Math.Round(rVal, 4, MidpointRounding.AwayFromZero);
+                richTextBox1.Text += "Rounded: " + rVal + ";\n";
             }
             else
             {
