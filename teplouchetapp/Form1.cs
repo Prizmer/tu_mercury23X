@@ -1532,7 +1532,10 @@ namespace elfextendedapp
             {
                 richTextBox1.Text += rVal + ";\n";
                 float roundedVal = (float)Math.Round(rVal, 4, MidpointRounding.AwayFromZero);
-                richTextBox1.Text += "Rounded: " + rVal + ";\n";
+
+                const string DOUBLE_STRING_FORMATER = "0.#######";
+                string beforeDB = roundedVal.ToString(DOUBLE_STRING_FORMATER).Replace(',', '.');
+                richTextBox1.Text += "Rounded and double cuted: " + beforeDB + ";\n";
             }
             else
             {
