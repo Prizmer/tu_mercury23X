@@ -58,6 +58,7 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnReadHalfs = new System.Windows.Forms.Button();
+            this.btnIndividuallyPolMonthly = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -371,7 +372,7 @@
             // 
             this.cbFromFileTcp.AutoSize = true;
             this.cbFromFileTcp.Location = new System.Drawing.Point(708, 39);
-            this.cbFromFileTcp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbFromFileTcp.Margin = new System.Windows.Forms.Padding(4);
             this.cbFromFileTcp.Name = "cbFromFileTcp";
             this.cbFromFileTcp.Size = new System.Drawing.Size(94, 21);
             this.cbFromFileTcp.TabIndex = 61;
@@ -391,7 +392,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(11, 94);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(75, 22);
             this.numericUpDown1.TabIndex = 54;
@@ -416,8 +417,22 @@
             this.btnReadHalfs.Click += new System.EventHandler(this.btnReadHalfs_Click);
             this.btnReadHalfs.MouseCaptureChanged += new System.EventHandler(this.btnReadHalfs_MouseCaptureChanged);
             // 
+            // btnIndividuallyPolMonthly
+            // 
+            this.btnIndividuallyPolMonthly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIndividuallyPolMonthly.Location = new System.Drawing.Point(124, 124);
+            this.btnIndividuallyPolMonthly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnIndividuallyPolMonthly.Name = "btnIndividuallyPolMonthly";
+            this.btnIndividuallyPolMonthly.Size = new System.Drawing.Size(51, 28);
+            this.btnIndividuallyPolMonthly.TabIndex = 72;
+            this.btnIndividuallyPolMonthly.Text = "М";
+            this.toolTip1.SetToolTip(this.btnIndividuallyPolMonthly, "Суточный параметр");
+            this.btnIndividuallyPolMonthly.UseVisualStyleBackColor = true;
+            this.btnIndividuallyPolMonthly.Click += new System.EventHandler(this.btnIndividuallyPolMonthly_Click);
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnIndividuallyPolMonthly);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -453,7 +468,7 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.Location = new System.Drawing.Point(429, 96);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(144, 22);
             this.dateTimePicker2.TabIndex = 71;
@@ -482,7 +497,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(276, 96);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(144, 22);
             this.dateTimePicker1.TabIndex = 67;
@@ -492,7 +507,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(216, 132);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(124, 21);
             this.checkBox1.TabIndex = 66;
@@ -556,7 +571,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(56, 22);
             this.textBoxPort.TabIndex = 54;
-            this.textBoxPort.Text = "4002";
+            this.textBoxPort.Text = "2002";
             // 
             // textBoxIp
             // 
@@ -565,7 +580,7 @@
             this.textBoxIp.Name = "textBoxIp";
             this.textBoxIp.Size = new System.Drawing.Size(99, 22);
             this.textBoxIp.TabIndex = 53;
-            this.textBoxIp.Text = "192.168.127.207";
+            this.textBoxIp.Text = "192.168.23.42";
             // 
             // label2
             // 
@@ -583,7 +598,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(179, 22);
             this.textBox1.TabIndex = 49;
-            this.textBox1.Text = "24";
+            this.textBox1.Text = "239";
             // 
             // pictureBoxLogo
             // 
@@ -614,7 +629,7 @@
             // 
             this.cbJustRead.AutoSize = true;
             this.cbJustRead.Location = new System.Drawing.Point(383, 50);
-            this.cbJustRead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbJustRead.Margin = new System.Windows.Forms.Padding(4);
             this.cbJustRead.Name = "cbJustRead";
             this.cbJustRead.Size = new System.Drawing.Size(79, 21);
             this.cbJustRead.TabIndex = 53;
@@ -640,7 +655,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(828, 473);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(305, 84);
             this.listBox1.TabIndex = 55;
@@ -751,6 +766,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnIndividuallyPolMonthly;
     }
 }
 

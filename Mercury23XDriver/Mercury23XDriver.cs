@@ -162,6 +162,8 @@ namespace Drivers.Mercury23XDriver
 
             // формирование команды
             this.MakeCommand(cmnd, ref cmd_size);
+            this.WriteToLog("SendCommand, cmd to meter: " + BitConverter.ToString(this.m_cmd));
+
 
             if (this.m_vport != null)
             {
@@ -943,6 +945,8 @@ namespace Drivers.Mercury23XDriver
             else
                 tar = Convert.ToUInt16(AddrMemoryAfterVer_2_1_0[month - 1] + Convert.ToUInt16(tarif * 0x11));
 
+            WriteToLog("Meter version: " + this.m_version);
+
             // номер команды
             command.CopyTo(cmnd, 0);
 
@@ -959,6 +963,8 @@ namespace Drivers.Mercury23XDriver
             {
                 return false;
             }
+
+            this.WriteToLog("ReadMonthlyMeterageToTarif, received bytes: " + BitConverter.ToString(answer));
 
             ////////
 
@@ -999,6 +1005,9 @@ namespace Drivers.Mercury23XDriver
                     break;
             }
             recordValue /= 1000.0f;
+
+            this.WriteToLog("ReadMonthlyMeterageToTarif, res value: " + recordValue);
+
             ///////////
 
             /*for (int i = 0; i < 4; i++)

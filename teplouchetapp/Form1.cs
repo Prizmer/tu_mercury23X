@@ -1513,6 +1513,30 @@ namespace elfextendedapp
         {
             ((RichTextBox)sender).Clear();
         }
+
+        private void btnIndividuallyPolMonthly_Click(object sender, EventArgs e)
+        {
+            Mercury23XDriver pd = new Mercury23XDriver();
+           // Values vals = new Values();
+
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
+
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text += "No chanel opened...";
+            }
+
+            float rVal = 0f;
+            if (pd.ReadMonthlyValues(DateTime.Now.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
+            {
+                richTextBox1.Text += rVal + ";\n";
+            }
+            else
+            {
+                richTextBox1.Text += "Не удалось " + (ushort)numericUpDown1.Value + ";\n";
+            }
+        }
     }
 
     public static class Prompt
