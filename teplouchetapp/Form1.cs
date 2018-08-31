@@ -1574,6 +1574,7 @@ namespace elfextendedapp
             else
             {
                 richTextBox1.Text += "Не удалось ошибки прочитать\n";
+                richTextBox1.Text += "Байты ошибок: " + errBytes + "\n";
             }
 
 

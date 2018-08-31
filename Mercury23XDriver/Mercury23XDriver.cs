@@ -618,7 +618,7 @@ namespace Drivers.Mercury23XDriver
             {
                 int tmp = 0;
                 // приходит 6 полезных байт, 1й - последний
-                byte b6 = answer[6];
+                byte b6 = answer[5];
                 byte b1 = answer[1];
 
                 tmp = (b1 & 0x80) >> 7;
