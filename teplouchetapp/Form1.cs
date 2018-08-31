@@ -298,6 +298,10 @@ namespace elfextendedapp
             //float val = BitConverter.ToSingle(data, 0);
             //MessageBox.Show(val.ToString("0.############"));
 
+            //string str1 = "dsfsdf#";
+            //string[] strarr = str1.Split('#');
+
+
             //setting up dialogs
             ofd1.Filter = "Excel files (*.xls) | *.xls";
             sfd1.Filter = ofd1.Filter;
@@ -1561,11 +1565,14 @@ namespace elfextendedapp
 
             string errString = "";
             string errBytes = "";
-            if (pd.ReadErrors(ref errString, ref errBytes))
+            int locErrCode = 0;
+            if (pd.ReadErrors(ref errString, ref errBytes, ref locErrCode))
             {
                 richTextBox1.Text += "Строка ошибок: " + errString + "\n";
                 richTextBox1.Text += "Байты ошибок: " + errBytes + "\n";
-            } else
+                richTextBox1.Text += "Локальный код: " + locErrCode + "\n";
+            }
+            else
             {
                 richTextBox1.Text += "Не удалось ошибки прочитать\n";
             }

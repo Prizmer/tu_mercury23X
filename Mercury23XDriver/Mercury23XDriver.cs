@@ -594,11 +594,13 @@ namespace Drivers.Mercury23XDriver
         }
 
         // Чтение слова состояния таблица самодиагностики
-        public bool ReadErrors(ref string errStr, ref string errBytesStr)
+        public bool ReadErrors(ref string errStr, ref string errBytesStr, ref int localErrCode)
         {
             errStr = "";
             errBytesStr = "";
             const int ERRORS_ANSW_SIZE = 9;
+
+            localErrCode = 0;
 
             byte[] answer = new byte[ERRORS_ANSW_SIZE];
             byte[] command = new byte[] { 0x08, 0x0A };
@@ -629,6 +631,8 @@ namespace Drivers.Mercury23XDriver
                 if (tmp == 1)
                 {
                     errStr += "BATTERY_LESS_2.65V (E-48); ";
+                    int code = Convert.ToInt32("00000001", 2);
+                    localErrCode |= code;
                 }
 
 
@@ -636,6 +640,8 @@ namespace Drivers.Mercury23XDriver
                 if (tmp == 1)
                 {
                     errStr += "BATTERY_LESS_2.20V (E-01); ";
+                    int code = Convert.ToInt32("00000010", 2);
+                    localErrCode |= code;
                 }
 
                 if (errStr.Length > 0)
@@ -1118,6 +1124,25 @@ namespace Drivers.Mercury23XDriver
         /// <returns></returns>
         public bool ReadAuxilaryParams(ushort readparam, byte tarif, ref float recordValue)
         {
+            if (readparam == 99)
+            {
+                // читаем ошибки
+                string errMsg = "";
+                string errBytesStr = "";
+                int localErrCode = 0;
+                if (ReadErrors(ref errMsg, ref errBytesStr, ref localErrCode))
+                {
+                    recordValue = localErrCode;
+                    if (localErrCode > 0)
+                        return true;
+                    else
+                        return false;
+                }
+
+                return false;
+            }
+
+
             if (tarif > 3)
             {
                 this.WriteToLog("ReadAuxilaryParams: tarif should be less than 3");
@@ -1818,14 +1843,6 @@ namespace Drivers.Mercury23XDriver
             byte status = 0;
 
             serial_number = String.Empty;
-
-
-            string errMsg = "";
-            string errBytesStr = "";
-            if (ReadErrors(ref errMsg, ref errBytesStr))
-            {
-                serial_number = errMsg + "#" + serial_number;
-            }
 
             if (!SendCommand(command, ref answer, 2, RSN_ANSW_SIZE, ref status))
                 return false;
