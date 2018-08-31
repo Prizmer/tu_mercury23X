@@ -1536,11 +1536,41 @@ namespace elfextendedapp
                 const string DOUBLE_STRING_FORMATER = "0.#######";
                 string beforeDB = roundedVal.ToString(DOUBLE_STRING_FORMATER).Replace(',', '.');
                 richTextBox1.Text += "Rounded and double cuted: " + beforeDB + ";\n";
+                richTextBox1.Text += "Rounded and double cuted: " + beforeDB + ";\n";
+                richTextBox1.Text += "Rounded and double cuted: " + beforeDB + ";\n";
+                richTextBox1.Text += "Rounded and double cuted: " + beforeDB + ";\n";
             }
             else
             {
                 richTextBox1.Text += "Не удалось " + (ushort)numericUpDown1.Value + ";\n";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Mercury23XDriver pd = new Mercury23XDriver();
+            // Values vals = new Values();
+
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
+
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text += "No chanel opened...";
+            }
+
+            string errString = "";
+            string errBytes = "";
+            if (pd.ReadErrors(ref errString, ref errBytes))
+            {
+                richTextBox1.Text += "Строка ошибок: " + errString + "\n";
+                richTextBox1.Text += "Байты ошибок: " + errBytes + "\n";
+            } else
+            {
+                richTextBox1.Text += "Не удалось ошибки прочитать\n";
+            }
+
+
         }
     }
 

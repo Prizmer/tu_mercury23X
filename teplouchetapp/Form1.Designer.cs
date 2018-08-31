@@ -80,6 +80,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownComReadTimeout)).BeginInit();
@@ -432,6 +433,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnIndividuallyPolMonthly);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
             this.groupBox1.Controls.Add(this.label9);
@@ -537,7 +539,7 @@
             // btnIndPollInfo
             // 
             this.btnIndPollInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIndPollInfo.Location = new System.Drawing.Point(627, 94);
+            this.btnIndPollInfo.Location = new System.Drawing.Point(695, 94);
             this.btnIndPollInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIndPollInfo.Name = "btnIndPollInfo";
             this.btnIndPollInfo.Size = new System.Drawing.Size(107, 55);
@@ -670,6 +672,18 @@
             this.label10.TabIndex = 56;
             this.label10.Text = "Выберите локальный ip:";
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(585, 94);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 55);
+            this.button1.TabIndex = 73;
+            this.button1.Text = "Ошибки";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -767,6 +781,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnIndividuallyPolMonthly;
+        private System.Windows.Forms.Button button1;
     }
 }
 

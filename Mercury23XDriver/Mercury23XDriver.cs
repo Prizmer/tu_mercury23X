@@ -593,6 +593,64 @@ namespace Drivers.Mercury23XDriver
             }
         }
 
+        // Чтение слова состояния таблица самодиагностики
+        public bool ReadErrors(ref string errStr, ref string errBytesStr)
+        {
+            errStr = "";
+            errBytesStr = "";
+            const int ERRORS_ANSW_SIZE = 9;
+
+            byte[] answer = new byte[ERRORS_ANSW_SIZE];
+            byte[] command = new byte[] { 0x08, 0x0A };
+            byte status = 0;
+
+            if (this.m_version <= 20100)
+            {
+                if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
+                    return false;
+            }
+            else if (this.m_version >= 20100)
+            {
+                if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
+                    return false;
+            }
+
+            errBytesStr = BitConverter.ToString(answer);
+            this.WriteToLog("Ответ на запрос ошибок: " + errBytesStr);
+
+            try
+            {
+                int tmp = 0;
+                // приходит 6 полезных байт, 1й - последний
+                byte b6 = answer[6];
+                byte b1 = answer[1];
+
+                tmp = (b1 & 0x80) >> 7;
+                if (tmp == 1)
+                {
+                    errStr += "BATTERY_LESS_2.65V (E-48); ";
+                }
+
+
+                tmp = (b6 & 0x01);
+                if (tmp == 1)
+                {
+                    errStr += "BATTERY_LESS_2.20V (E-01); ";
+                }
+
+                if (errStr.Length > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLog("Проблемы при разборе байта состояния: " + ex.ToString());
+                return false;
+            }
+
+        }
+
 
         #region Дата и время
 
