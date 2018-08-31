@@ -1552,9 +1552,8 @@ namespace elfextendedapp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Mercury23XDriver pd = new Mercury23XDriver();
-            // Values vals = new Values();
 
+            Mercury23XDriver pd = new Mercury23XDriver();
             pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
 
             if (!pd.OpenLinkCanal())

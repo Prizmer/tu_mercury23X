@@ -573,7 +573,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(56, 22);
             this.textBoxPort.TabIndex = 54;
-            this.textBoxPort.Text = "2002";
+            this.textBoxPort.Text = "7004";
             // 
             // textBoxIp
             // 
@@ -582,7 +582,7 @@
             this.textBoxIp.Name = "textBoxIp";
             this.textBoxIp.Size = new System.Drawing.Size(99, 22);
             this.textBoxIp.TabIndex = 53;
-            this.textBoxIp.Text = "192.168.23.42";
+            this.textBoxIp.Text = "192.168.23.71";
             // 
             // label2
             // 
@@ -600,7 +600,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(179, 22);
             this.textBox1.TabIndex = 49;
-            this.textBox1.Text = "239";
+            this.textBox1.Text = "13";
             // 
             // pictureBoxLogo
             // 

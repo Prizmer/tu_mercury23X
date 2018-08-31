@@ -606,16 +606,10 @@ namespace Drivers.Mercury23XDriver
             byte[] command = new byte[] { 0x08, 0x0A };
             byte status = 0;
 
-            if (this.m_version <= 20100)
-            {
-                if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
-                    return false;
-            }
-            else if (this.m_version >= 20100)
-            {
-                if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
-                    return false;
-            }
+
+            if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
+                return false;
+          
 
             errBytesStr = BitConverter.ToString(answer);
             this.WriteToLog("Ответ на запрос ошибок: " + errBytesStr);
