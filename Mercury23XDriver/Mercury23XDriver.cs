@@ -1817,16 +1817,23 @@ namespace Drivers.Mercury23XDriver
             byte[] command = new byte[] { 0x08, 0x00 };
             byte status = 0;
 
+            serial_number = String.Empty;
 
+
+            string errMsg = "";
+            string errBytesStr = "";
+            if (ReadErrors(ref errMsg, ref errBytesStr))
+            {
+                serial_number = errMsg + "#" + serial_number;
+            }
 
             if (!SendCommand(command, ref answer, 2, RSN_ANSW_SIZE, ref status))
                 return false;
 
             try
             {
-                byte[] serialBytesArr = new byte[4];
-                serial_number = String.Empty;
 
+                byte[] serialBytesArr = new byte[4];
                 serialBytesArr[0] = answer[1];
                 serialBytesArr[1] = answer[2];
                 serialBytesArr[2] = answer[3];

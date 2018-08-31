@@ -1375,7 +1375,7 @@ namespace elfextendedapp
 
             if (!pd.ReadSerialNumber(ref serial))
             {
-                serial = "No serial...";
+                serial = "No serial...: " + serial;
             }
 
             int versionMeter = -1;
