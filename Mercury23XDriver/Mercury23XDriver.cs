@@ -609,17 +609,29 @@ namespace Drivers.Mercury23XDriver
 
             if (!this.SendCommand(command, ref answer, 2, ERRORS_ANSW_SIZE, ref status))
                 return false;
-          
+
 
             errBytesStr = BitConverter.ToString(answer);
             this.WriteToLog("Ответ на запрос ошибок: " + errBytesStr);
+
+
+            //byte[] answer = { 0x0D, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0xC6, 0x50 };
 
             try
             {
                 int tmp = 0;
                 // приходит 6 полезных байт, 1й - последний
+                // 0D-00-00-00-00-01-00-C6-50
                 byte b6 = answer[5];
                 byte b1 = answer[1];
+
+                tmp = (b6 & 0x01);
+                if (tmp == 1)
+                {
+                    errStr += "BATTERY_LESS_2.20V (E-01); ";
+                    int code = Convert.ToInt32("00000010", 2);
+                    localErrCode |= code;
+                }
 
                 tmp = (b1 & 0x80) >> 7;
                 if (tmp == 1)
@@ -630,13 +642,7 @@ namespace Drivers.Mercury23XDriver
                 }
 
 
-                tmp = (b6 & 0x01);
-                if (tmp == 1)
-                {
-                    errStr += "BATTERY_LESS_2.20V (E-01); ";
-                    int code = Convert.ToInt32("00000010", 2);
-                    localErrCode |= code;
-                }
+
 
                 if (errStr.Length > 0)
                     return true;
