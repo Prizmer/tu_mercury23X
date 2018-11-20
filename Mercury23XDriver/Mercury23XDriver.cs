@@ -164,6 +164,19 @@ namespace Drivers.Mercury23XDriver
             this.MakeCommand(cmnd, ref cmd_size);
             this.WriteToLog("SendCommand, cmd to meter: " + BitConverter.ToString(this.m_cmd));
 
+            // подрежем команду :)
+            byte[] truncArray = new byte[cmd_size];
+            try
+            {
+                byte[] sourceArray = m_cmd;
+                Array.Copy(sourceArray, truncArray, truncArray.Length);    
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLog("SendCommand, обрезка команды не удалась: " + ex.ToString());
+            }
+
+            this.WriteToLog("SendCommand, cmd to meter truncated: " + BitConverter.ToString(truncArray));
 
             if (this.m_vport != null)
             {
@@ -171,7 +184,7 @@ namespace Drivers.Mercury23XDriver
 
                 //ushort size = Convert.ToUInt16(this.m_vport.Read(ref answer));//DelayMs(this.m_DirectTimeoutAnswer);
 
-                int size = this.m_vport.WriteReadData(FindPacketSignature, this.m_cmd, ref answer, cmd_size, answ_size);
+                int size = this.m_vport.WriteReadData(FindPacketSignature, truncArray, ref answer, cmd_size, answ_size);
 
                 if (size == answ_size)
                 {
@@ -849,6 +862,79 @@ namespace Drivers.Mercury23XDriver
                         break;
                 }
             }*/
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// Для поддержки вспомогательной утилиты. Читает все, чтобы не делать много запросов.
+        /// </summary>
+        /// <param name="tarif"></param>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        public bool ReadCurrentMeterageToTarif(byte tarif, ref byte[] answer)
+        {
+            byte[] cmnd = new byte[32];
+            answer = new byte[RCURRENT_ANSW_SIZE];
+            byte[] command = new byte[] { 0x05, 0x0 };
+            byte status = 0;
+
+            command.CopyTo(cmnd, 0);
+            cmnd[2] = tarif;
+
+            if (!SendCommand(cmnd, ref answer, 3, RCURRENT_ANSW_SIZE, ref status))
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Для поддержки вспомогательной утилиты. Читает все, чтобы не делать много запросов.
+        /// Расшифровывает результат работы метода ReadCurrentMeterageToTarif.
+        /// </summary>
+        /// <param name="readparam"></param>
+        /// <param name="answer"></param>
+        /// <param name="recordValue"></param>
+        /// <returns></returns>
+        public bool GetValueFromMeterageToTarifAnswer(ushort readparam, byte[] answer, ref float recordValue)
+        {
+            ////////
+
+            if (readparam > 4) return false;
+
+            uint temp_value = 0;
+            ushort temp_word = 0;
+            temp_value = BitConverter.ToUInt16(answer, 1 + readparam * 4);
+            temp_value <<= 16;
+            temp_word = BitConverter.ToUInt16(answer, 3 + readparam * 4);
+            temp_value += temp_word;
+
+            // проверка 
+            if (temp_value == 0xFFFFFFFF)
+                temp_value = 0;
+
+            switch (readparam)
+            {
+                case 0:
+                    recordValue = Convert.ToSingle(temp_value);
+                    break;
+                case 1:
+                    recordValue = Convert.ToSingle(temp_value);
+                    break;
+                case 2:
+                    recordValue = Convert.ToSingle(temp_value);
+                    break;
+                case 3:
+                    recordValue = Convert.ToSingle(temp_value);
+                    break;
+                case 4:
+                    recordValue = Convert.ToSingle(temp_value);
+                    break;
+                default:
+                    break;
+            }
+            recordValue /= 1000.0f;
 
             return true;
         }
@@ -1764,7 +1850,13 @@ namespace Drivers.Mercury23XDriver
 
         #endregion
 
+        public void ChangeMAddress(uint newaddr)
+        {
+            this.m_address = newaddr % 239;
+            if (m_address == 0) m_address = 239;
 
+            this.m_is_opened = false;
+        }
 
         #region Реализация методов интерфейса IMeter
 
@@ -1844,11 +1936,10 @@ namespace Drivers.Mercury23XDriver
 
             serial_number = String.Empty;
 
-            if (!SendCommand(command, ref answer, 2, RSN_ANSW_SIZE, ref status))
-                return false;
-
             try
             {
+                if (!SendCommand(command, ref answer, 2, RSN_ANSW_SIZE, ref status))
+                    return false;
 
                 byte[] serialBytesArr = new byte[4];
                 serialBytesArr[0] = answer[1];
@@ -1879,6 +1970,7 @@ namespace Drivers.Mercury23XDriver
             }
             catch (Exception ex)
             {
+                WriteToLog("ReadSerialNumber ex: " + ex.ToString());
                 return false;
             }
 
