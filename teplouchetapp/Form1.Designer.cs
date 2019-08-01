@@ -60,6 +60,7 @@
             this.btnReadHalfs = new System.Windows.Forms.Button();
             this.btnIndividuallyPolMonthly = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -80,7 +81,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSyncTime = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownComReadTimeout)).BeginInit();
@@ -208,7 +209,7 @@
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 568);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 570);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1144, 26);
@@ -407,7 +408,7 @@
             // btnReadHalfs
             // 
             this.btnReadHalfs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReadHalfs.Location = new System.Drawing.Point(216, 94);
+            this.btnReadHalfs.Location = new System.Drawing.Point(216, 124);
             this.btnReadHalfs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReadHalfs.Name = "btnReadHalfs";
             this.btnReadHalfs.Size = new System.Drawing.Size(51, 28);
@@ -433,6 +434,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSyncTime);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnIndividuallyPolMonthly);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
@@ -461,15 +463,27 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(815, 169);
+            this.groupBox1.Size = new System.Drawing.Size(815, 167);
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Индивидуальный блок";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(585, 74);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 42);
+            this.button1.TabIndex = 73;
+            this.button1.Text = "Ошибки";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(429, 96);
+            this.dateTimePicker2.Location = new System.Drawing.Point(368, 96);
             this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(144, 22);
@@ -479,7 +493,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(425, 75);
+            this.label9.Location = new System.Drawing.Point(365, 74);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 17);
@@ -489,7 +503,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(272, 74);
+            this.label8.Location = new System.Drawing.Point(213, 75);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 17);
@@ -498,7 +512,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(276, 96);
+            this.dateTimePicker1.Location = new System.Drawing.Point(216, 96);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(144, 22);
@@ -508,7 +522,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(216, 132);
+            this.checkBox1.Location = new System.Drawing.Point(388, 126);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(124, 21);
@@ -539,10 +553,10 @@
             // btnIndPollInfo
             // 
             this.btnIndPollInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIndPollInfo.Location = new System.Drawing.Point(695, 94);
+            this.btnIndPollInfo.Location = new System.Drawing.Point(695, 74);
             this.btnIndPollInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIndPollInfo.Name = "btnIndPollInfo";
-            this.btnIndPollInfo.Size = new System.Drawing.Size(107, 55);
+            this.btnIndPollInfo.Size = new System.Drawing.Size(107, 42);
             this.btnIndPollInfo.TabIndex = 60;
             this.btnIndPollInfo.Text = "Инфо";
             this.btnIndPollInfo.UseVisualStyleBackColor = true;
@@ -573,7 +587,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(56, 22);
             this.textBoxPort.TabIndex = 54;
-            this.textBoxPort.Text = "7004";
+            this.textBoxPort.Text = "4001";
             // 
             // textBoxIp
             // 
@@ -582,7 +596,7 @@
             this.textBoxIp.Name = "textBoxIp";
             this.textBoxIp.Size = new System.Drawing.Size(99, 22);
             this.textBoxIp.TabIndex = 53;
-            this.textBoxIp.Text = "192.168.23.71";
+            this.textBoxIp.Text = "192.168.244.48";
             // 
             // label2
             // 
@@ -600,7 +614,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(179, 22);
             this.textBox1.TabIndex = 49;
-            this.textBox1.Text = "13";
+            this.textBox1.Text = "223";
             // 
             // pictureBoxLogo
             // 
@@ -656,7 +670,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(828, 473);
+            this.listBox1.Location = new System.Drawing.Point(828, 479);
             this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(305, 84);
@@ -665,30 +679,30 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(828, 442);
+            this.label10.Location = new System.Drawing.Point(825, 456);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(169, 17);
             this.label10.TabIndex = 56;
             this.label10.Text = "Выберите локальный ip:";
             // 
-            // button1
+            // btnSyncTime
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(585, 94);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 55);
-            this.button1.TabIndex = 73;
-            this.button1.Text = "Ошибки";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSyncTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSyncTime.Location = new System.Drawing.Point(695, 122);
+            this.btnSyncTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSyncTime.Name = "btnSyncTime";
+            this.btnSyncTime.Size = new System.Drawing.Size(107, 32);
+            this.btnSyncTime.TabIndex = 74;
+            this.btnSyncTime.Text = "Синх. время";
+            this.btnSyncTime.UseVisualStyleBackColor = true;
+            this.btnSyncTime.Click += new System.EventHandler(this.btnSyncTime_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 594);
+            this.ClientSize = new System.Drawing.Size(1144, 596);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.richTextBox1);
@@ -782,6 +796,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnIndividuallyPolMonthly;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSyncTime;
     }
 }
 

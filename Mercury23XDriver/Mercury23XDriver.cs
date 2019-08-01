@@ -1984,19 +1984,22 @@ namespace Drivers.Mercury23XDriver
         {
             bool res = true;
 
-            // Тест канала связи
-            //if (Test() == false)
-           // {
-            //    return false;
-            //}
-
             // открытие канала связи
             if (this.Open() == false)
                 return false;
 
             // читаем версию счетчика
             if (this.ReadVersionMeter() == false)
-                return false;
+            {
+                // если не удалось прочитать, возможно, закрыт канал
+                // обнулим флаг и попробуем открыть
+                this.m_is_opened = false;
+                this.Open();
+
+                // повторим чтение версии
+                if (this.ReadVersionMeter() == false)
+                    return false;
+            }
 
             // читаем вариант исполнения счетчика
             if (this.ReadVariantExecute() == false)
@@ -2121,7 +2124,7 @@ namespace Drivers.Mercury23XDriver
 
         public bool SyncTime(DateTime dt)
         {
-            return false;
+            return this.SynchronizeClock(dt);
         }
 
         public bool ReadDailyValues(uint recordId, ushort param, ushort tarif, ref float recordValue)

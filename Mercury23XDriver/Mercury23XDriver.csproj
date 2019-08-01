@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9D781833-4219-4C11-89BB-6D0160131414}</ProjectGuid>
+    <ProjectGuid>{56AB5BE1-BC5F-4282-AE46-FDAFED2EFB01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mercury23XDriver</RootNamespace>

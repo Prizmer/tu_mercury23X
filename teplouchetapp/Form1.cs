@@ -40,6 +40,9 @@ namespace elfextendedapp
 
             InputDataReady = false;
 
+            dateTimePicker1.Value = DateTime.Now.Date;
+            dateTimePicker2.Value = DateTime.Now.Date;
+
 
         }
 
@@ -1411,7 +1414,7 @@ namespace elfextendedapp
             }
 
             float rVal = 0f;
-            if (pd.ReadDailyValues(DateTime.Now.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
+            if (pd.ReadDailyValues(dateTimePicker1.Value.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
             {
                 richTextBox1.Text += rVal + ";\n";
             }
@@ -1532,7 +1535,7 @@ namespace elfextendedapp
             }
 
             float rVal = 0f;
-            if (pd.ReadMonthlyValues(DateTime.Now.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
+            if (pd.ReadMonthlyValues(dateTimePicker1.Value.Date, (ushort)numericUpDown1.Value, (ushort)numericUpDown2.Value, ref rVal))
             {
                 richTextBox1.Text += rVal + ";\n";
                 float roundedVal = (float)Math.Round(rVal, 4, MidpointRounding.AwayFromZero);
@@ -1578,6 +1581,32 @@ namespace elfextendedapp
             }
 
 
+        }
+
+        private void btnSyncTime_Click(object sender, EventArgs e)
+        {
+            string serial = "";
+
+            Mercury23XDriver pd = new Mercury23XDriver();
+            pd.Init(uint.Parse(textBox1.Text), passwordDefault, Vp);
+
+            if (!pd.OpenLinkCanal())
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text += "No chanel opened...";
+            }
+
+            if (!pd.SyncTime(DateTime.Now))
+            {
+                serial = "Часы НЕ синхронизированы\n";
+            } else
+            {
+                serial = "Успех\n";
+            }
+
+
+            richTextBox1.Clear();
+            richTextBox1.Text += serial + "\n";
         }
     }
 
